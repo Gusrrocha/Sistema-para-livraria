@@ -23,10 +23,10 @@
       <item>
        <widget class="QFrame" name="frame">
         <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
+         <enum>QFrame::Box</enum>
         </property>
         <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
+         <enum>QFrame::Sunken</enum>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_3">
          <item>
@@ -43,7 +43,7 @@
                 </widget>
                </item>
                <item>
-                <widget class="QLineEdit" name="lineEdit"/>
+                <widget class="QLineEdit" name="nome"/>
                </item>
               </layout>
              </item>
@@ -57,7 +57,7 @@
                 </widget>
                </item>
                <item>
-                <widget class="QLineEdit" name="lineEdit_2">
+                <widget class="QLineEdit" name="telefone">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                    <horstretch>0</horstretch>
@@ -113,7 +113,7 @@
                 </widget>
                </item>
                <item>
-                <widget class="QLineEdit" name="lineEdit_3"/>
+                <widget class="QLineEdit" name="endereco"/>
                </item>
               </layout>
              </item>
@@ -127,7 +127,7 @@
                 </widget>
                </item>
                <item>
-                <widget class="QLineEdit" name="lineEdit_4">
+                <widget class="QLineEdit" name="cpf">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                    <horstretch>0</horstretch>
@@ -161,7 +161,7 @@
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_5">
            <item>
-            <widget class="QPushButton" name="pushButton_3">
+            <widget class="QPushButton" name="remover_btn">
              <property name="text">
               <string>Remover</string>
              </property>
@@ -188,7 +188,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton">
+            <widget class="QPushButton" name="salvar_btn">
              <property name="text">
               <string>Salvar</string>
              </property>
@@ -203,7 +203,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QTableWidget" name="tableWidget">
+    <widget class="QTableWidget" name="painel_clientes">
      <property name="autoFillBackground">
       <bool>false</bool>
      </property>
