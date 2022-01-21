@@ -43,7 +43,11 @@
                 </widget>
                </item>
                <item>
-                <widget class="QLineEdit" name="nome"/>
+                <widget class="QLineEdit" name="nome">
+                 <property name="placeholderText">
+                  <string>Nome do cliente</string>
+                 </property>
+                </widget>
                </item>
               </layout>
              </item>
@@ -74,7 +78,7 @@
                   <bool>false</bool>
                  </property>
                  <property name="placeholderText">
-                  <string>(DDD) 9 1234-5678</string>
+                  <string>Somente números</string>
                  </property>
                  <property name="cursorMoveStyle">
                   <enum>Qt::LogicalMoveStyle</enum>
@@ -113,7 +117,11 @@
                 </widget>
                </item>
                <item>
-                <widget class="QLineEdit" name="endereco"/>
+                <widget class="QLineEdit" name="endereco">
+                 <property name="placeholderText">
+                  <string>Endereço do cliente</string>
+                 </property>
+                </widget>
                </item>
               </layout>
              </item>
@@ -135,7 +143,7 @@
                   </sizepolicy>
                  </property>
                  <property name="placeholderText">
-                  <string>123.456.789-10</string>
+                  <string>Somente números</string>
                  </property>
                 </widget>
                </item>
@@ -189,6 +197,12 @@
            </item>
            <item>
             <widget class="QPushButton" name="lupa">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="toolTip">
+              <string>Pesquisar</string>
+             </property>
              <property name="text">
               <string/>
              </property>
@@ -232,17 +246,17 @@
      </column>
      <column>
       <property name="text">
-       <string>nome</string>
+       <string>Nome</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string>telefone</string>
+       <string>Telefone</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string>endereço</string>
+       <string>Endereço</string>
       </property>
      </column>
      <column>
