@@ -7,3 +7,6 @@ class Cliente():
         self.endereco = endereco
         self.cpf = cpf
 
+    def getCostumer(self):
+        return [self.nome, self.telefone, self.endereco, self.cpf]
+

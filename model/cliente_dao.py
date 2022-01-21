@@ -36,7 +36,7 @@ def removeC(id):
         cursor = conn.cursor() 
         sql = """DELETE FROM Cliente WHERE id=?"""
         cursor.execute(sql, [id])
-        cursor.commit()
+        conn.commit()
     except Exception as e:
         print(e)
     finally:
@@ -47,7 +47,7 @@ def selectAll():
     try:
         conn = dbase.connect()
         cursor = conn.cursor()
-        sql = """SELECT * FROM Cliente ORDER BY upper(nome)"""
+        sql = """SELECT * FROM Cliente ORDER BY id ASC"""
         cursor.execute(sql)
         result = cursor.fetchall()
         for cliente in result:

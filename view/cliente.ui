@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>782</width>
+    <width>783</width>
     <height>600</height>
    </rect>
   </property>
@@ -179,6 +179,24 @@
               </size>
              </property>
             </spacer>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="pesquisa">
+             <property name="placeholderText">
+              <string>Digite aqui para buscar um cliente</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="lupa">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normaloff>../assets/icons/lupa.png</normaloff>../assets/icons/lupa.png</iconset>
+             </property>
+            </widget>
            </item>
            <item>
             <widget class="QPushButton" name="cancel_edit_btn">
