@@ -189,30 +189,6 @@
             </spacer>
            </item>
            <item>
-            <widget class="QLineEdit" name="pesquisa">
-             <property name="placeholderText">
-              <string>Digite aqui para buscar um cliente</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="lupa">
-             <property name="cursor">
-              <cursorShape>PointingHandCursor</cursorShape>
-             </property>
-             <property name="toolTip">
-              <string>Pesquisar</string>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-             <property name="icon">
-              <iconset>
-               <normaloff>../assets/icons/lupa.png</normaloff>../assets/icons/lupa.png</iconset>
-             </property>
-            </widget>
-           </item>
-           <item>
             <widget class="QPushButton" name="cancel_edit_btn">
              <property name="text">
               <string>Cancelar edição</string>
@@ -233,6 +209,34 @@
       </item>
      </layout>
     </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_7">
+     <item>
+      <widget class="QLineEdit" name="pesquisa">
+       <property name="placeholderText">
+        <string>Digite aqui para buscar um cliente</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="lupa">
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="toolTip">
+        <string>Pesquisar</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../assets/icons/lupa.png</normaloff>../assets/icons/lupa.png</iconset>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
     <widget class="QTableWidget" name="painel_clientes">

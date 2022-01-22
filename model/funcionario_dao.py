@@ -1,0 +1,30 @@
+import sqlite3
+from model import dbase
+from model.funcionario import Funcionario
+
+def reg(funcionario):
+    try:
+        conn = dbase.connect()
+        cursor = conn.cursor()
+        sql = """INSERT INTO Funcionario (nome_de_usuario, senha, email) 
+                VALUES (?, ?, ?)"""
+        cursor.execute(sql, funcionario.getWorker())
+        conn.commit()
+    except Exception as e:
+        print(e)
+    finally:
+        conn.close()
+
+def log(us, se):
+    try:
+        conn = dbase.connect()
+        cursor = conn.cursor()
+        sql = """SELECT FROM Funcionario WHERE nome_de_usuario=?, senha=?"""
+        cursor.execute(sql, us, se)
+        result = cursor.fetchall()
+    except Exception as e:
+        print(e)
+    finally:
+        conn.close()
+    return result
+
