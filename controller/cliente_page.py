@@ -34,7 +34,10 @@ class ClientePage(QWidget):
 
     def remover(self):
         cliente_dao.removeC(self.c_at.id)
+        self.remover_btn.hide()
+        self.cancel_edit_btn.hide()
         self.load()
+
         
 
     def salvar(self):
@@ -54,8 +57,9 @@ class ClientePage(QWidget):
             f_tt = str(telefone[7:])
             formated = "{}.{}.{}-{}".format(f_um,f_dois,f_tres,f_quatro)
             formated_tel = "({}) {} {}-{}".format(f_tum, f_td, f_ttt, f_tt)
+            valid = QDoubleValidator(0, 100000000000, 0)
             if nome != '' and telefone != '' and endereco != '' and cpf != '':
-                if isinstance(telefone, str) == True:
+                if valid.validate(telefone, 14)[0] == QValidator.Acceptable and valid.validate(cpf, 14)[0] == QValidator.Acceptable:
                     if len(str(telefone)) == 11 and len(str(cpf)) == 11:
                         if self.c_at == None:
                             cliente_dao.add(Cliente(None, nome, formated_tel, endereco, formated))
@@ -74,6 +78,9 @@ class ClientePage(QWidget):
         except Exception as e:
             QMessageBox.about(self, "Erro!", "Preencha todas as lacunas!")
             print(e)
+        self.remover_btn.hide()
+        self.cancel_edit_btn.hide()
+
 
     def stopEdit(self):
         self.clear_()

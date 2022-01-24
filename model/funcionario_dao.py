@@ -19,9 +19,9 @@ def log(us, se):
     try:
         conn = dbase.connect()
         cursor = conn.cursor()
-        sql = """SELECT FROM Funcionario WHERE nome_de_usuario=?, senha=?"""
-        cursor.execute(sql, us, se)
-        result = cursor.fetchall()
+        sql = """SELECT * FROM Funcionario WHERE nome_de_usuario= '{}' AND senha= '{}';""".format(us, se)
+        cursor.execute(sql)
+        result = cursor.fetchone()
     except Exception as e:
         print(e)
     finally:

@@ -2,6 +2,7 @@ from qt_core import *
 from controller.main_window import MainWindow
 from model.funcionario import Funcionario
 import model.funcionario_dao as fun_dao
+from model import dbase
 class Login(QDialog):
     def __init__(self):
         super().__init__()
@@ -18,13 +19,22 @@ class Login(QDialog):
     def check(self):
         us = self.usuario.text()
         se = self.senha.text()
-        login = fun_dao.log(us, se)
-        if len(login) == 0:
-            QMessageBox.about(self, "Erro!", "Usuário ou senha incorretos!")
-        else:
-            self.mainWindow = MainWindow()
-            self.mainWindow.show()
-            self.hide()
+        try:
+            if us == '' and se == '':
+                QMessageBox.about(self, "Erro!", "Insira os dados!")
+            else:
+                login = fun_dao.log(us, se)
+                if login == None:
+                    QMessageBox.about(self, "Erro!", "Usuário ou senha incorretos!")
+                else:
+                    QMessageBox.about(self, "Acesso aceito!", "Entrou com êxito!")
+                    user_logged = us
+                    self.mainWindow = MainWindow(user_logged)
+                    self.mainWindow.show()
+                    self.hide()
+        except Exception as e:
+            print(e)
+
 
     def cadast(self):
         try:
