@@ -172,9 +172,12 @@
           </property>
           <property name="minimumSize">
            <size>
-            <width>70</width>
+            <width>100</width>
             <height>0</height>
            </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
           </property>
           <property name="text">
            <string>Clientes</string>
@@ -182,7 +185,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_2">
+         <widget class="QPushButton" name="produto_btn">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -191,12 +194,12 @@
           </property>
           <property name="minimumSize">
            <size>
-            <width>70</width>
+            <width>100</width>
             <height>0</height>
            </size>
           </property>
           <property name="text">
-           <string/>
+           <string>Produtos</string>
           </property>
          </widget>
         </item>
@@ -210,7 +213,7 @@
           </property>
           <property name="minimumSize">
            <size>
-            <width>70</width>
+            <width>100</width>
             <height>0</height>
            </size>
           </property>
@@ -229,7 +232,7 @@
           </property>
           <property name="minimumSize">
            <size>
-            <width>70</width>
+            <width>100</width>
             <height>0</height>
            </size>
           </property>
@@ -237,6 +240,19 @@
            <string/>
           </property>
          </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
       </item>

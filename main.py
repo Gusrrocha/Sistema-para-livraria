@@ -6,6 +6,7 @@ from controller.login import Login
 
 
 app = QApplication(sys.argv)
+app.setStyle('Fusion')
 if (QDialog.Accepted == True):
     win = Login()
     win.show()

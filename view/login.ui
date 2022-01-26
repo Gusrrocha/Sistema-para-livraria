@@ -70,9 +70,9 @@
   <widget class="QPushButton" name="cadastrar_btn">
    <property name="geometry">
     <rect>
-     <x>170</x>
+     <x>150</x>
      <y>230</y>
-     <width>75</width>
+     <width>111</width>
      <height>23</height>
     </rect>
    </property>
@@ -113,7 +113,11 @@
      </widget>
     </item>
     <item>
-     <widget class="QLineEdit" name="email"/>
+     <widget class="QLineEdit" name="email">
+      <property name="placeholderText">
+       <string>Insira o email</string>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -135,7 +139,11 @@
      </widget>
     </item>
     <item>
-     <widget class="QLineEdit" name="senha"/>
+     <widget class="QLineEdit" name="senha">
+      <property name="placeholderText">
+       <string>Insira a senha</string>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -157,9 +165,26 @@
      </widget>
     </item>
     <item>
-     <widget class="QLineEdit" name="usuario"/>
+     <widget class="QLineEdit" name="usuario">
+      <property name="placeholderText">
+       <string>Insira o usuário</string>
+      </property>
+     </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="QPushButton" name="cancelar_btn">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>260</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Cancelar</string>
+   </property>
   </widget>
  </widget>
  <resources/>

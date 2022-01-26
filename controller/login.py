@@ -2,18 +2,21 @@ from qt_core import *
 from controller.main_window import MainWindow
 from model.funcionario import Funcionario
 import model.funcionario_dao as fun_dao
-from model import dbase
 class Login(QDialog):
     def __init__(self):
         super().__init__()
         uic.loadUi('view/login.ui', self)
 
+
+        self.senha.setEchoMode(QLineEdit.Password)
         self.label_email.hide()
         self.email.hide()
         self.cadastrar_btn.hide()
+        self.cancelar_btn.hide()
         self.entrar_btn.clicked.connect(self.check)
         self.registrar_btn.clicked.connect(self.register)
         self.cadastrar_btn.clicked.connect(self.cadast)
+        self.cancelar_btn.clicked.connect(self.cancelar)
 
     
     def check(self):
@@ -31,6 +34,7 @@ class Login(QDialog):
                     user_logged = us
                     self.mainWindow = MainWindow(user_logged)
                     self.mainWindow.show()
+                    
                     self.hide()
         except Exception as e:
             print(e)
@@ -51,6 +55,7 @@ class Login(QDialog):
                     self.entrar_btn.show()
                     self.email.hide()
                     self.label_email.hide()
+                    self.cancelar_btn.hide()
                     self.usuario.clear()
                     self.senha.clear()
                     self.email.clear()
@@ -68,3 +73,12 @@ class Login(QDialog):
         self.cadastrar_btn.show()
         self.label_email.show()
         self.email.show()
+        self.cancelar_btn.show()
+    
+    def cancelar(self):
+        self.cancelar_btn.hide()
+        self.label_email.hide()
+        self.email.hide()
+        self.cadastrar_btn.hide()
+        self.entrar_btn.show()
+        self.registrar_btn.show()
