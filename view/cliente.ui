@@ -170,6 +170,9 @@
           <layout class="QHBoxLayout" name="horizontalLayout_5">
            <item>
             <widget class="QPushButton" name="remover_btn">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
              <property name="text">
               <string>Remover</string>
              </property>
@@ -190,6 +193,9 @@
            </item>
            <item>
             <widget class="QPushButton" name="cancel_edit_btn">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
              <property name="text">
               <string>Cancelar edição</string>
              </property>
@@ -197,6 +203,9 @@
            </item>
            <item>
             <widget class="QPushButton" name="salvar_btn">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
              <property name="text">
               <string>Salvar</string>
              </property>
@@ -242,6 +251,9 @@
     <widget class="QTableWidget" name="painel_clientes">
      <property name="autoFillBackground">
       <bool>false</bool>
+     </property>
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
      </property>
      <column>
       <property name="text">

@@ -2,7 +2,6 @@ from controller.funcionario import FunOP
 from controller.produto_page import ProP
 from qt_core import *
 from controller.cliente_page import ClientePage
-from controller.add_pro import AddProP
 class MainWindow(QMainWindow):
     def __init__(self, user_logged):
         super().__init__()
@@ -12,7 +11,7 @@ class MainWindow(QMainWindow):
 
         self.funcionario_label.setText(user_logged+"!")
         self.clientes_btn.clicked.connect(self.showCliente)
-        self.produto_btn.clicked.connect(self.produto)
+        self.produto_btn.clicked.connect(self.produto_page)
 
         menu = QMenu()
         self.mais_fun.setMenu(menu)
@@ -20,12 +19,6 @@ class MainWindow(QMainWindow):
         action_um.triggered.connect(self.edit_fun)
         action_dois = menu.addAction('Sair')
         action_dois.triggered.connect(self.sair)
-
-        
-
-    def showAdd(self):
-        self.tabela.insertWidget(4, AddProP())
-        self.tabela.setCurrentIndex(4)
 
     def showCliente(self):
         self.tabela.insertWidget(1, ClientePage())
@@ -38,7 +31,7 @@ class MainWindow(QMainWindow):
         self.tabela.insertWidget(2, FunOP(self.user_logged))
         self.tabela.setCurrentIndex(2)
 
-    def produto(self):
+    def produto_page(self):
         self.tabela.insertWidget(3, ProP(self))
         self.tabela.setCurrentIndex(3)
         
