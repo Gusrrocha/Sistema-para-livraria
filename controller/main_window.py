@@ -2,6 +2,7 @@ from controller.funcionario import FunOP
 from controller.produto_page import ProP
 from qt_core import *
 from controller.cliente_page import ClientePage
+from controller.venda_page import VendaPg
 class MainWindow(QMainWindow):
     def __init__(self, user_logged):
         super().__init__()
@@ -12,7 +13,7 @@ class MainWindow(QMainWindow):
         self.funcionario_label.setText(user_logged+"!")
         self.clientes_btn.clicked.connect(self.showCliente)
         self.produto_btn.clicked.connect(self.produto_page)
-
+        # self.venda_btn.clicked.connect(self.venda_pg)
         menu = QMenu()
         self.mais_fun.setMenu(menu)
         action_um = menu.addAction('Editar funcionário')
@@ -34,6 +35,10 @@ class MainWindow(QMainWindow):
     def produto_page(self):
         self.tabela.insertWidget(3, ProP(self))
         self.tabela.setCurrentIndex(3)
+    
+    def venda_pg(self):
+        self.tabela.insertWidget(4, VendaPg(self.user_logged))
+        self.tabela.setCurrentIndex(4)
         
 
         
