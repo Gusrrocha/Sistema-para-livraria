@@ -13,7 +13,7 @@ class MainWindow(QMainWindow):
         self.funcionario_label.setText(user_logged+"!")
         self.clientes_btn.clicked.connect(self.showCliente)
         self.produto_btn.clicked.connect(self.produto_page)
-        # self.venda_btn.clicked.connect(self.venda_pg)
+        self.venda_btn.clicked.connect(self.venda_pg)
         menu = QMenu()
         self.mais_fun.setMenu(menu)
         action_um = menu.addAction('Editar funcionário')
