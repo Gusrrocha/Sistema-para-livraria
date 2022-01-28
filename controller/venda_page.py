@@ -14,6 +14,7 @@ class VendaPg(QWidget):
         self.lista_item = []
         self.prd_atual = None
         self.valor = None
+        self.valor_total = 0
         self.user_logged = user_logged
         self.fun_atual_v.setText(user_logged)
         self.valor_item.setText("R$ 0")
@@ -50,6 +51,7 @@ class VendaPg(QWidget):
 
     
     def addItem(self, index):
+        locale.setlocale(locale.LC_ALL, '')
         id_prd = self.prd_atual.id
         nome = self.prd_atual.nome
         qt = self.quant_produto.value()
@@ -57,6 +59,9 @@ class VendaPg(QWidget):
 
         item_dao.add(Item(None, id_prd, nome, qt, valor))
         self.lista_item.append(Item(None, id_prd, nome, qt, valor))
+        self.valor_total += valor
+        val_format = locale.currency(self.valor_total, grouping=True)
+        self.val_total.setText(val_format)
         self.load_item()
 
     def tb(self, item, cont):
