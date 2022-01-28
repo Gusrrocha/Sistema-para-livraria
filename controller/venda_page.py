@@ -16,6 +16,7 @@ class VendaPg(QWidget):
         self.valor = None
         self.valor_total = 0
         self.user_logged = user_logged
+        self.val_total.setText("R$ 0")
         self.fun_atual_v.setText(user_logged)
         self.valor_item.setText("R$ 0")
         self.table_item.verticalHeader().setVisible(False)
