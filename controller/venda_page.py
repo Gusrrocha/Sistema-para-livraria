@@ -78,7 +78,10 @@ class VendaPg(QWidget):
         valor = self.prd_atual.valor_venda*qt
 
         item_dao.add(Item(None, id_prd, nome, qt, valor))
-        self.lista_item.append(Item(None, id_prd, nome, qt, valor))
+        id_item = item_dao.selectRecent()
+        print(str(id_item))
+        print(str(id_item[0][0]))
+        self.lista_item.append(Item(id_item[0][0], id_prd, nome, qt, valor))
         self.valor_total += valor
         val_format = locale.currency(self.valor_total, grouping=True)
         self.val_total.setText(val_format)

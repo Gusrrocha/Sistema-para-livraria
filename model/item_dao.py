@@ -25,6 +25,18 @@ def remove(id):
     finally:
         conn.close()
 
+def selectRecent():
+    try:
+        conn = dbase.connect()
+        cursor = conn.cursor()
+        sql = """SELECT MAX(id) FROM ItemVenda"""
+        cursor.execute(sql)
+        result = cursor.fetchall()
+    except Exception as u:
+        print(u)
+    finally:
+        conn.close()
+    return result
 def selectAll():
     li = []
     try:
