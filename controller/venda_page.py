@@ -79,8 +79,6 @@ class VendaPg(QWidget):
 
         item_dao.add(Item(None, id_prd, nome, qt, valor))
         id_item = item_dao.selectRecent()
-        print(str(id_item))
-        print(str(id_item[0][0]))
         self.lista_item.append(Item(id_item[0][0], id_prd, nome, qt, valor))
         self.valor_total += valor
         val_format = locale.currency(self.valor_total, grouping=True)
@@ -89,6 +87,10 @@ class VendaPg(QWidget):
         self.load_item()
     
     def removeItem(self):
+        locale.setlocale(locale.LC_ALL, '')
+        self.valor_total -= self.item_atual.produto_valor
+        self.val_total.setText(locale.currency(self.valor_total, grouping=True))
+        self.falta_lineEdit.setText(str(locale.currency(self.valor_total, grouping=True)))
         item_dao.remove(self.item_atual.id)
         self.lista_item.remove(self.item_atual)
         self.removerItem_btn.setEnabled(False)
