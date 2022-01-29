@@ -11,8 +11,10 @@ class ProP(QWidget):
         self.mainWindow = mainWindow
         self.remover_btn.hide()
         self.cancelar_btn.hide()
+        self.remover_btn.clicked.connect(self.remover)
         self.cancelar_btn.clicked.connect(self.cancelar)
         self.salvar_btn.clicked.connect(self.salvar)
+
 
         
         self.painel_produtos.verticalHeader().setVisible(False)
@@ -21,6 +23,12 @@ class ProP(QWidget):
         self.painel_produtos.clicked.connect(self.click)
         self.load()
     
+    def remover(self):
+        prop_dao.removeP(self.prod_at.id)
+        self.remover_btn.hide()
+        self.cancelar_btn.hide()
+        self.load()
+
     def cancelar(self):
         self.clear()
         self.cancelar_btn.hide()

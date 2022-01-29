@@ -13,6 +13,18 @@ def addProd(produto):
     finally:
         conn.close()
 
+def removeP(id):
+    try:
+        conn = dbase.connect()
+        cursor = conn.cursor()
+        sql = """DELETE FROM Produto WHERE id=?"""
+        cursor.execute(sql, [id])
+        conn.commit()
+    except Exception as q:
+        print(q)
+    finally:
+        conn.close()
+        
 def editProd(produto):
     try:
         conn = dbase.connect()
