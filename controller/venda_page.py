@@ -87,6 +87,7 @@ class VendaPg(QWidget):
     
     def removeItem(self):
         item_dao.remove(self.item_atual.id)
+        self.lista_item.remove(self.item_atual)
         self.removerItem_btn.setEnabled(False)
         self.cancel_item_btn.hide()
         self.addItem_btn.setEnabled(True)
@@ -95,7 +96,6 @@ class VendaPg(QWidget):
         self.valor_item.setEnabled(True)
         self.load_item()
         
-
     def tb(self, item, cont):
         locale.setlocale(locale.LC_ALL, '')
         row = self.table_item.rowCount()
