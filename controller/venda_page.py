@@ -33,7 +33,7 @@ class VendaPg(QWidget):
         self.inserir_din.clicked.connect(self.mCl)
         self.table_item.clicked.connect(self.ckl)
         self.removerItem_btn.clicked.connect(self.removeItem)
-        
+        self.cancel_item_btn.clicked.connect(self.cancelItem)
         timer = QTimer(self)
         timer.timeout.connect(self.showtime)
         timer.start()
@@ -86,6 +86,15 @@ class VendaPg(QWidget):
         self.falta_lineEdit.setText(str(locale.currency(self.valor_total, grouping=True)))
         self.load_item()
     
+    def cancelItem(self):
+        self.removerItem_btn.setEnabled(False)
+        self.cancel_item_btn.hide()
+        self.addItem_btn.setEnabled(True)
+        self.produto_comboBox.setEnabled(True)
+        self.quant_produto.setEnabled(True)
+        self.valor_item.setEnabled(True)
+        self.item_atual = None
+        
     def removeItem(self):
         locale.setlocale(locale.LC_ALL, '')
         self.valor_total -= self.item_atual.produto_valor
@@ -139,7 +148,6 @@ class VendaPg(QWidget):
         self.valor_item.setEnabled(False)
         row = self.table_item.currentRow()
         self.item_atual = self.lista_item[row]
-
 
 
     def mCl(self):
