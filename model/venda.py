@@ -8,4 +8,4 @@ class Venda():
         self.item_venda = item_venda
         
     def getSale(self):
-        return [self.cliente, self.funcionario, self.item_venda, self.valor]
+        return [self.cliente, self.funcionario, self.valor]

@@ -3,6 +3,8 @@ import locale
 import model.cliente_dao as cl
 import model.prop_dao as pr
 import model.item_dao as item_dao
+import model.venda_dao as sale
+from model.venda import Venda
 from model.item import Item
 class VendaPg(QWidget):
     def __init__(self, user_logged):
@@ -12,6 +14,8 @@ class VendaPg(QWidget):
         self.lista_prd = None
         self.lista = None
         self.lista_item = []
+        self.lista_iditem = []
+        self.cl_atual = None
         self.prd_atual = None
         self.item_atual = None
         self.valor = None
@@ -26,12 +30,15 @@ class VendaPg(QWidget):
         self.table_item.verticalHeader().setVisible(False)
         self.table_item.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.table_item.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeToContents)
+        self.final_btn.setEnabled(False)
         self.removerItem_btn.setEnabled(False)
+        self.addItem_btn.setEnabled(False)
         self.cancel_item_btn.hide()
         self.addItem_btn.clicked.connect(self.addItem)
         self.pag_comboBox.currentIndexChanged.connect(self.pagamento)
         self.inserir_din.clicked.connect(self.mCl)
         self.table_item.clicked.connect(self.ckl)
+        self.final_btn.clicked.connect(self.final)
         self.removerItem_btn.clicked.connect(self.removeItem)
         self.cancel_item_btn.clicked.connect(self.cancelItem)
         timer = QTimer(self)
@@ -52,15 +59,19 @@ class VendaPg(QWidget):
 
     def load_prd(self):
         self.lista_prd = pr.selectAll()
+        i = 0
         for p in self.lista_prd:
-            self.produto_comboBox.addItem(p.nome)
+            self.produto_comboBox.insertItem(i, p.nome)
+            i += 1
         self.produto_comboBox.currentIndexChanged.connect(self.prdSelected)
 
     def load(self):
         self.lista = cl.selectAll()
+        i = 0
         for c in self.lista:
-            self.cliente_comboBox.addItem(c.nome)
-        # self.cliente_comboBox.currentIndexChanged.connect(self.clSelected)
+            self.cliente_comboBox.insertItem(i, c.nome)
+            i += 1
+        self.cliente_comboBox.currentIndexChanged.connect(self.clSelected)
 
     def load_item(self):
         cont = 0
@@ -80,6 +91,7 @@ class VendaPg(QWidget):
         item_dao.add(Item(None, id_prd, nome, qt, valor))
         id_item = item_dao.selectRecent()
         self.lista_item.append(Item(id_item[0][0], id_prd, nome, qt, valor))
+        self.lista_iditem.append(id_item[0][0])
         self.valor_total += valor
         val_format = locale.currency(self.valor_total, grouping=True)
         self.val_total.setText(val_format)
@@ -130,14 +142,28 @@ class VendaPg(QWidget):
         self.clear()
 
     def clear(self):
+        c = 0
+        for item in self.lista_prd:
+            c += 1
+        self.produto_comboBox.setCurrentIndex(c)
         self.quant_produto.setValue(1)
         self.valor_item.setText("R$ 0,00")
+    
+    def clSelected(self, index):
+        if self.cliente_comboBox.currentText() != "Escolha o cliente":
+            self.cl_atual = self.lista[index]
 
     def prdSelected(self, index):
         locale.setlocale(locale.LC_ALL, '')
-        self.prd_atual = self.lista_prd[index]
-        self.valor = locale.currency(self.prd_atual.valor_venda, grouping=True)
-        self.valor_item.setText(str(self.valor))
+        if self.produto_comboBox.currentText() != "Escolha o produto":
+            self.addItem_btn.setEnabled(True)
+            self.prd_atual = self.lista_prd[index]
+            self.valor = locale.currency(self.prd_atual.valor_venda, grouping=True)
+            self.valor_item.setText(str(self.valor))
+        else:
+            self.valor_item.setText("R$ 0,00")
+            self.addItem_btn.setEnabled(False)
+        
         
     def ckl(self):
         self.removerItem_btn.setEnabled(True)
@@ -160,6 +186,7 @@ class VendaPg(QWidget):
             if self.falta < self.valor_total:
                 self.falta_lineEdit.setText(falta_f)
             else:
+                self.final_btn.setEnabled(True)
                 troco = self.falta - self.valor_total
                 troco_f = locale.currency(troco, grouping=True)
                 self.troco.setText(troco_f)
@@ -167,6 +194,12 @@ class VendaPg(QWidget):
         else:
             QMessageBox.warning(self, "Aviso!", "Você ainda não adicionou nenhum produto!")
 
+    def final(self):
+        try:
+            sale.add(Venda(None, self.cl_atual.nome, self.user_logged, self.valor_total, self.lista_iditem))
+        except Exception as b:
+            print(b)
+        
 
     def showtime(self):
         tempo = QTime.currentTime()

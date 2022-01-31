@@ -103,7 +103,13 @@
             </widget>
            </item>
            <item>
-            <widget class="QComboBox" name="cliente_comboBox"/>
+            <widget class="QComboBox" name="cliente_comboBox">
+             <item>
+              <property name="text">
+               <string>Escolha o cliente</string>
+              </property>
+             </item>
+            </widget>
            </item>
            <item>
             <widget class="QLabel" name="label">
@@ -166,7 +172,13 @@
              </widget>
             </item>
             <item>
-             <widget class="QComboBox" name="produto_comboBox"/>
+             <widget class="QComboBox" name="produto_comboBox">
+              <item>
+               <property name="text">
+                <string>Escolha o produto</string>
+               </property>
+              </item>
+             </widget>
             </item>
            </layout>
           </item>
@@ -572,7 +584,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="pushButton_3">
+              <widget class="QPushButton" name="final_btn">
                <property name="text">
                 <string>Finalizar venda</string>
                </property>
