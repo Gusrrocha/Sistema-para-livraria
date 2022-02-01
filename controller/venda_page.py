@@ -33,6 +33,8 @@ class VendaPg(QWidget):
         self.final_btn.setEnabled(False)
         self.removerItem_btn.setEnabled(False)
         self.addItem_btn.setEnabled(False)
+        self.inserir_din.setEnabled(False)
+        self.final_in_btn.setEnabled(False)
         self.cancel_item_btn.hide()
         self.addItem_btn.clicked.connect(self.addItem)
         self.pag_comboBox.currentIndexChanged.connect(self.pagamento)
@@ -41,11 +43,23 @@ class VendaPg(QWidget):
         self.final_btn.clicked.connect(self.final)
         self.removerItem_btn.clicked.connect(self.removeItem)
         self.cancel_item_btn.clicked.connect(self.cancelItem)
+        self.final_in_btn.clicked.connect(self.fechar)
         timer = QTimer(self)
         timer.timeout.connect(self.showtime)
         timer.start()
         self.load()
         self.load_prd()
+    def fechar(self):
+        quest = QMessageBox.question(self, "", "Você tem certeza que quer fechar?", QMessageBox.Yes| QMessageBox.No)
+        
+        if quest == QMessageBox.Yes:
+            self.final_in_btn.setEnabled(False)
+            self.inserir_din.setEnabled(True)
+            self.addItem_btn.setEnabled(False)
+            self.produto_comboBox.setEnabled(False)
+            self.quant_produto.setEnabled(False)
+            self.valor_item.setEnabled(False)
+            self.table_item.setEnabled(False)
     
     def pagamento(self):
         if self.pag_comboBox.currentIndex() == 1:
@@ -96,11 +110,13 @@ class VendaPg(QWidget):
         val_format = locale.currency(self.valor_total, grouping=True)
         self.val_total.setText(val_format)
         self.falta_lineEdit.setText(str(locale.currency(self.valor_total, grouping=True)))
+        self.final_in_btn.setEnabled(True)
         self.load_item()
     
     def cancelItem(self):
         self.removerItem_btn.setEnabled(False)
         self.cancel_item_btn.hide()
+        self.final_in_btn.show()
         self.addItem_btn.setEnabled(True)
         self.produto_comboBox.setEnabled(True)
         self.quant_produto.setEnabled(True)
@@ -116,6 +132,7 @@ class VendaPg(QWidget):
         self.lista_item.remove(self.item_atual)
         self.removerItem_btn.setEnabled(False)
         self.cancel_item_btn.hide()
+        self.final_in_btn.show()
         self.addItem_btn.setEnabled(True)
         self.produto_comboBox.setEnabled(True)
         self.quant_produto.setEnabled(True)
@@ -168,6 +185,7 @@ class VendaPg(QWidget):
     def ckl(self):
         self.removerItem_btn.setEnabled(True)
         self.cancel_item_btn.show()
+        self.final_in_btn.hide()
         self.addItem_btn.setEnabled(False)
         self.produto_comboBox.setEnabled(False)
         self.quant_produto.setEnabled(False)
