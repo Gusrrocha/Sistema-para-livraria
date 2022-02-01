@@ -1,4 +1,3 @@
-from model.item_v import ItemV
 from qt_core import *
 import locale
 import model.cliente_dao as cl
@@ -17,7 +16,7 @@ class VendaPg(QWidget):
         self.lista_prd = None
         self.lista = None
         self.lista_item = []
-        self.lista_it = []
+        self.lista_iditem = []
         self.cl_atual = None
         self.prd_atual = None
         self.item_atual = None
@@ -105,10 +104,10 @@ class VendaPg(QWidget):
         qt = self.quant_produto.value()
         valor = self.prd_atual.valor_venda*qt
 
-        item_dao.add(Item(None, id_prd, nome, qt, valor))
+        item_dao.add(Item(None, id_prd, None, nome, qt, valor))
         id_item = item_dao.selectRecent()
-        self.lista_item.append(Item(id_item[0][0], id_prd, nome, qt, valor))
-        self.lista_it.append(ItemV(None, nome, qt, valor))
+        self.lista_item.append(Item(id_item[0][0], id_prd, None, nome, qt, valor))
+        self.lista_iditem.append(id_item[0][0])
         self.valor_total += valor
         val_format = locale.currency(self.valor_total, grouping=True)
         self.val_total.setText(val_format)
@@ -217,17 +216,16 @@ class VendaPg(QWidget):
             QMessageBox.warning(self, "Aviso!", "Você ainda não adicionou nenhum produto!")
 
     def final(self):
-        print(len(self.lista_it))
         try:
             if self.cl_atual != None:
-                sale.add(Venda(None, self.cl_atual.nome, self.user_logged, self.valor_total, self.lista_it))
+                sale.add(Venda(None, self.cl_atual.nome, self.user_logged, self.valor_total, self.lista_item))
                 QMessageBox.information(self, "Finalizado!", "Compra finalizada com sucesso!")
                 id_venda = sale.selectRecent()
-                for it in self.lista_it:
+                for itemid in self.lista_iditem:
                     conn = dbase.connect()
                     cursor = conn.cursor()
-                    sql = """INSERT INTO ItemV (id_venda, nome, quantidade, valor) VALUES ({},?,{}, {})""".format(id_venda[0], it.quantidade, it.valor)
-                    cursor.execute(sql, [it.nome])
+                    sql = f"""UPDATE ItemVenda SET id_venda={id_venda[0]} WHERE id=?"""
+                    cursor.execute(sql, [itemid])
                     conn.commit()
                     conn.close()
                 
