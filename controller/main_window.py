@@ -21,6 +21,8 @@ class MainWindow(QMainWindow):
         action_dois = menu.addAction('Sair')
         action_dois.triggered.connect(self.sair)
 
+    def mainPage(self):
+        self.tabela.setCurrentIndex(0)
     def showCliente(self):
         self.tabela.insertWidget(1, ClientePage())
         self.tabela.setCurrentIndex(1)
@@ -37,7 +39,7 @@ class MainWindow(QMainWindow):
         self.tabela.setCurrentIndex(3)
     
     def venda_pg(self):
-        self.tabela.insertWidget(4, VendaPg(self.user_logged))
+        self.tabela.insertWidget(4, VendaPg(self.user_logged, self))
         self.tabela.setCurrentIndex(4)
         
 

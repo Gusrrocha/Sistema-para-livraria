@@ -7,10 +7,11 @@ import model.venda_dao as sale
 from model.venda import Venda
 from model.item import Item
 class VendaPg(QWidget):
-    def __init__(self, user_logged):
+    def __init__(self, user_logged, mainWindow):
         super().__init__()
         uic.loadUi('view/venda_pg.ui', self)
 
+        self.mainWindow = mainWindow
         self.lista_prd = None
         self.lista = None
         self.lista_item = []
@@ -50,7 +51,7 @@ class VendaPg(QWidget):
         self.load()
         self.load_prd()
     def fechar(self):
-        quest = QMessageBox.question(self, "", "Você tem certeza que quer fechar?", QMessageBox.Yes| QMessageBox.No)
+        quest = QMessageBox.question(self, "Fechar", "Você tem certeza que quer fechar?", QMessageBox.Yes| QMessageBox.No)
         
         if quest == QMessageBox.Yes:
             self.final_in_btn.setEnabled(False)
@@ -204,6 +205,7 @@ class VendaPg(QWidget):
             if self.falta < self.valor_total:
                 self.falta_lineEdit.setText(falta_f)
             else:
+                self.inserir_din.setEnabled(False)
                 self.final_btn.setEnabled(True)
                 troco = self.falta - self.valor_total
                 troco_f = locale.currency(troco, grouping=True)
@@ -214,7 +216,12 @@ class VendaPg(QWidget):
 
     def final(self):
         try:
-            sale.add(Venda(None, self.cl_atual.nome, self.user_logged, self.valor_total, self.lista_iditem))
+            if self.cl_atual != None:
+                sale.add(Venda(None, self.cl_atual.nome, self.user_logged, self.valor_total, self.lista_iditem))
+                QMessageBox.information(self, "Finalizado!", "Compra finalizada com sucesso!")
+                self.mainWindow.mainPage()
+            else:
+                QMessageBox.warning(self, "Erro!", "Insira um cliente!")
         except Exception as b:
             print(b)
         
