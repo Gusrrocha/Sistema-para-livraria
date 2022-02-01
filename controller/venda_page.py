@@ -1,3 +1,4 @@
+from model.item_v import ItemV
 from qt_core import *
 import locale
 import model.cliente_dao as cl
@@ -6,6 +7,7 @@ import model.item_dao as item_dao
 import model.venda_dao as sale
 from model.venda import Venda
 from model.item import Item
+from model import dbase
 class VendaPg(QWidget):
     def __init__(self, user_logged, mainWindow):
         super().__init__()
@@ -15,7 +17,7 @@ class VendaPg(QWidget):
         self.lista_prd = None
         self.lista = None
         self.lista_item = []
-        self.lista_iditem = []
+        self.lista_it = []
         self.cl_atual = None
         self.prd_atual = None
         self.item_atual = None
@@ -106,7 +108,7 @@ class VendaPg(QWidget):
         item_dao.add(Item(None, id_prd, nome, qt, valor))
         id_item = item_dao.selectRecent()
         self.lista_item.append(Item(id_item[0][0], id_prd, nome, qt, valor))
-        self.lista_iditem.append(id_item[0][0])
+        self.lista_it.append(ItemV(None, nome, qt, valor))
         self.valor_total += valor
         val_format = locale.currency(self.valor_total, grouping=True)
         self.val_total.setText(val_format)
@@ -215,10 +217,21 @@ class VendaPg(QWidget):
             QMessageBox.warning(self, "Aviso!", "Você ainda não adicionou nenhum produto!")
 
     def final(self):
+        print(len(self.lista_it))
         try:
             if self.cl_atual != None:
-                sale.add(Venda(None, self.cl_atual.nome, self.user_logged, self.valor_total, self.lista_iditem))
+                sale.add(Venda(None, self.cl_atual.nome, self.user_logged, self.valor_total, self.lista_it))
                 QMessageBox.information(self, "Finalizado!", "Compra finalizada com sucesso!")
+                id_venda = sale.selectRecent()
+                for it in self.lista_it:
+                    conn = dbase.connect()
+                    cursor = conn.cursor()
+                    sql = """INSERT INTO ItemV (id_venda, nome, quantidade, valor) VALUES ({},?,{}, {})""".format(id_venda[0], it.quantidade, it.valor)
+                    cursor.execute(sql, [it.nome])
+                    conn.commit()
+                    conn.close()
+                
+                        
                 self.mainWindow.mainPage()
             else:
                 QMessageBox.warning(self, "Erro!", "Insira um cliente!")

@@ -9,3 +9,8 @@ class Venda():
         
     def getSale(self):
         return [self.cliente, self.funcionario, self.valor]
+
+    def getList(self):
+        newlist = []
+        self.item_venda.extend(newlist)
+        return [newlist]

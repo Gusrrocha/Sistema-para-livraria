@@ -1,5 +1,4 @@
 from model import dbase
-
 def add(venda):
     try:
         conn = dbase.connect()
@@ -11,3 +10,16 @@ def add(venda):
         print(p)
     finally:
         conn.close()
+    
+def selectRecent():
+    try:
+        conn = dbase.connect()
+        cursor = conn.cursor()
+        sql = """SELECT MAX(id) FROM Venda"""
+        cursor.execute(sql)
+        result = cursor.fetchone()
+    except Exception as g:
+        print(g)
+    finally:
+        conn.close()
+    return result
