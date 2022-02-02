@@ -3,6 +3,7 @@ from controller.produto_page import ProP
 from qt_core import *
 from controller.cliente_page import ClientePage
 from controller.venda_page import VendaPg
+from controller.estoque import Storage
 class MainWindow(QMainWindow):
     def __init__(self, user_logged):
         super().__init__()
@@ -44,7 +45,8 @@ class MainWindow(QMainWindow):
         self.tabela.setCurrentIndex(4)
 
     def estoque(self):
-        pass
+        self.tabela.insertWidget(5, Storage())
+        self.tabela.setCurrentIndex(5)
         
 
         

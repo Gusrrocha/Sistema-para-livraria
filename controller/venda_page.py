@@ -276,8 +276,6 @@ class VendaPg(QWidget):
                 self.final_btn.setEnabled(True)
                 
 
-            
-                     
     def parcela(self):
         self.parcela_at = self.parcelas.currentText()
         self.inserir_din.setEnabled(True)
@@ -289,9 +287,7 @@ class VendaPg(QWidget):
             case "6x": self.parcela_at = 6
             case "7x": self.parcela_at = 7
             case "8x": self.parcela_at = 8
- 
-
-        
+         
     def final(self):
         try:
             if self.cl_atual != None:
