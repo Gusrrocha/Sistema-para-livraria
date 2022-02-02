@@ -247,7 +247,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_4">
+         <widget class="QPushButton" name="estoque_btn">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -261,7 +261,7 @@
            </size>
           </property>
           <property name="text">
-           <string/>
+           <string>Estoque</string>
           </property>
          </widget>
         </item>

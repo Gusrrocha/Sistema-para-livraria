@@ -14,6 +14,7 @@ class MainWindow(QMainWindow):
         self.clientes_btn.clicked.connect(self.showCliente)
         self.produto_btn.clicked.connect(self.produto_page)
         self.venda_btn.clicked.connect(self.venda_pg)
+        self.estoque_btn.clicked.connect(self.estoque)
         menu = QMenu()
         self.mais_fun.setMenu(menu)
         action_um = menu.addAction('Editar funcionário')
@@ -41,6 +42,9 @@ class MainWindow(QMainWindow):
     def venda_pg(self):
         self.tabela.insertWidget(4, VendaPg(self.user_logged, self))
         self.tabela.setCurrentIndex(4)
+
+    def estoque(self):
+        pass
         
 
         

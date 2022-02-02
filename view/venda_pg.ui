@@ -72,9 +72,9 @@
             </widget>
            </item>
            <item>
-            <widget class="QDateEdit" name="dateEdit">
-             <property name="calendarPopup">
-              <bool>true</bool>
+            <widget class="QLabel" name="data_label">
+             <property name="text">
+              <string>TextLabel</string>
              </property>
             </widget>
            </item>
@@ -380,64 +380,149 @@
           <property name="frameShadow">
            <enum>QFrame::Sunken</enum>
           </property>
-          <layout class="QHBoxLayout" name="horizontalLayout_9">
+          <layout class="QVBoxLayout" name="verticalLayout_13">
            <item>
-            <layout class="QVBoxLayout" name="verticalLayout_12">
+            <layout class="QVBoxLayout" name="verticalLayout_10">
              <item>
-              <layout class="QVBoxLayout" name="verticalLayout_10">
-               <item>
-                <widget class="QLabel" name="label_10">
-                 <property name="text">
-                  <string>Dinheiro recebido:</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="din_lineEdit">
-                 <property name="minimumSize">
-                  <size>
-                   <width>0</width>
-                   <height>60</height>
-                  </size>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <pointsize>18</pointsize>
-                  </font>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                 </property>
-                 <property name="placeholderText">
-                  <string>SOMENTE NÚMEROS</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
+              <widget class="QLabel" name="din_label">
+               <property name="text">
+                <string>Dinheiro recebido:</string>
+               </property>
+              </widget>
              </item>
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_7">
+              <widget class="QLineEdit" name="din_lineEdit">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>60</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>18</pointsize>
+                </font>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
+               <property name="placeholderText">
+                <string>SOMENTE NÚMEROS</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_9">
+             <item>
+              <widget class="QLabel" name="parcela_label">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>Parcelas:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="parcelas">
                <item>
-                <spacer name="horizontalSpacer_5">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>40</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
+                <property name="text">
+                 <string>2x</string>
+                </property>
                </item>
                <item>
-                <widget class="QPushButton" name="inserir_din">
-                 <property name="text">
-                  <string>Inserir</string>
-                 </property>
-                </widget>
+                <property name="text">
+                 <string>3x</string>
+                </property>
                </item>
-              </layout>
+               <item>
+                <property name="text">
+                 <string>4x</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>5x</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>6x</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>7x</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>8x</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_im">
+             <property name="text">
+              <string>1 parcela - preço normal!</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_par">
+             <property name="text">
+              <string>2 parcelas ou 3 - 5% de juros!</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_po">
+             <property name="text">
+              <string>4 parcelas ou mais - 15% de juros!</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_12"/>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_7">
+             <item>
+              <spacer name="horizontalSpacer_5">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QPushButton" name="inserir_din">
+               <property name="text">
+                <string>Inserir</string>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -461,13 +546,19 @@
           <property name="frameShadow">
            <enum>QFrame::Raised</enum>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_7">
+          <layout class="QVBoxLayout" name="verticalLayout_14">
            <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_15">
+            <layout class="QHBoxLayout" name="horizontalLayout_10">
              <item>
               <layout class="QVBoxLayout" name="verticalLayout_11">
                <item>
-                <widget class="QLabel" name="label_11">
+                <widget class="QLabel" name="falta_label">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
                  <property name="text">
                   <string>Falta:</string>
                  </property>
@@ -497,9 +588,49 @@
               </layout>
              </item>
              <item>
+              <layout class="QVBoxLayout" name="verticalLayout_7">
+               <item>
+                <widget class="QLabel" name="par">
+                 <property name="text">
+                  <string>Valor parcelado:</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="cela">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>14</pointsize>
+                   <weight>50</weight>
+                   <bold>false</bold>
+                  </font>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                 <property name="readOnly">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
               <layout class="QVBoxLayout" name="verticalLayout_5">
                <item>
                 <widget class="QLabel" name="troco_label">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
                  <property name="text">
                   <string>Troco:</string>
                  </property>
@@ -535,6 +666,12 @@
               <layout class="QVBoxLayout" name="verticalLayout_4">
                <item>
                 <widget class="QLabel" name="label_9">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
                  <property name="text">
                   <string>Valor Total:</string>
                  </property>
@@ -575,10 +712,13 @@
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Expanding</enum>
+               </property>
                <property name="sizeHint" stdset="0">
                 <size>
                  <width>40</width>
-                 <height>20</height>
+                 <height>5</height>
                 </size>
                </property>
               </spacer>

@@ -20,6 +20,7 @@ class VendaPg(QWidget):
         self.cl_atual = None
         self.prd_atual = None
         self.item_atual = None
+        self.parcela_at = None
         self.valor = None
         self.valor_total = 0
         self.falta = 0
@@ -38,6 +39,13 @@ class VendaPg(QWidget):
         self.inserir_din.setEnabled(False)
         self.final_in_btn.setEnabled(False)
         self.cancel_item_btn.hide()
+        self.parcela_label.hide()
+        self.parcelas.hide()
+        self.label_im.hide()
+        self.label_par.hide()
+        self.label_po.hide()
+        self.par.hide()
+        self.cela.hide()
         self.addItem_btn.clicked.connect(self.addItem)
         self.pag_comboBox.currentIndexChanged.connect(self.pagamento)
         self.inserir_din.clicked.connect(self.mCl)
@@ -46,32 +54,63 @@ class VendaPg(QWidget):
         self.removerItem_btn.clicked.connect(self.removeItem)
         self.cancel_item_btn.clicked.connect(self.cancelItem)
         self.final_in_btn.clicked.connect(self.fechar)
+        self.parcelas.currentIndexChanged.connect(self.parcela)
         timer = QTimer(self)
         timer.timeout.connect(self.showtime)
         timer.start()
         self.load()
         self.load_prd()
+
     def fechar(self):
         quest = QMessageBox.question(self, "Fechar", "Você tem certeza que quer fechar?", QMessageBox.Yes| QMessageBox.No)
         
         if quest == QMessageBox.Yes:
             self.final_in_btn.setEnabled(False)
-            self.inserir_din.setEnabled(True)
+            if self.pag_comboBox.currentText() == 'DINHEIRO':
+                self.inserir_din.setEnabled(True)
+            elif self.parcela_at != None:
+                self.inserir_din.setEnabled(True)
             self.addItem_btn.setEnabled(False)
             self.produto_comboBox.setEnabled(False)
             self.quant_produto.setEnabled(False)
             self.valor_item.setEnabled(False)
             self.table_item.setEnabled(False)
-    
+            self.pag_comboBox.setEnabled(False)
+            
     def pagamento(self):
         if self.pag_comboBox.currentIndex() == 1:
             self.troco_label.hide()
             self.troco.hide()
+            self.parcelas.show()
+            self.parcela_label.show()
+            self.din_lineEdit.hide()
+            self.din_label.hide()
+            self.label_im.show()
+            self.label_par.show()
+            self.label_po.show()
+            self.falta_label.hide()
+            self.falta_lineEdit.hide()
+            self.par.show()
+            self.cela.show()
+            self.cela.setText("R$ 0,00")
             self.pag_groupBox.setTitle("Cartão")
         else:
             self.troco_label.show()
             self.troco.show()
+            self.inserir_din.show()
+            self.parcelas.hide()
+            self.parcela_label.hide()
+            self.din_lineEdit.show()
+            self.din_label.show()
+            self.label_im.hide()
+            self.label_par.hide()
+            self.label_po.hide()
+            self.falta_label.show()
+            self.falta_lineEdit.show()
+            self.par.hide()
+            self.cela.hide()
             self.pag_groupBox.setTitle("Dinheiro")
+
 
     def load_prd(self):
         self.lista_prd = pr.selectAll()
@@ -198,23 +237,61 @@ class VendaPg(QWidget):
 
     def mCl(self):
         locale.setlocale(locale.LC_ALL, '')
-        if self.valor_total != 0:
-            dinheiro_recebido = int(self.din_lineEdit.text())
-            self.falta += dinheiro_recebido
-            falta = self.valor_total - self.falta
-            falta_f = locale.currency(falta, grouping=True)
-            if self.falta < self.valor_total:
-                self.falta_lineEdit.setText(falta_f)
+        if self.pag_comboBox.currentIndex() != 1:
+            if self.valor_total != 0:
+                dinheiro_recebido = int(self.din_lineEdit.text())
+                self.falta += dinheiro_recebido
+                falta = self.valor_total - self.falta
+                falta_f = locale.currency(falta, grouping=True)
+                if self.falta < self.valor_total:
+                    self.falta_lineEdit.setText(falta_f)
+                else:
+                    self.inserir_din.setEnabled(False)
+                    self.final_btn.setEnabled(True)
+                    troco = self.falta - self.valor_total
+                    troco_f = locale.currency(troco, grouping=True)
+                    self.troco.setText(troco_f)
+                    self.falta_lineEdit.setText("R$ 0,00")
             else:
-                self.inserir_din.setEnabled(False)
-                self.final_btn.setEnabled(True)
-                troco = self.falta - self.valor_total
-                troco_f = locale.currency(troco, grouping=True)
-                self.troco.setText(troco_f)
-                self.falta_lineEdit.setText("R$ 0,00")
+                QMessageBox.warning(self, "Aviso!", "Você ainda não adicionou nenhum produto!")
         else:
-            QMessageBox.warning(self, "Aviso!", "Você ainda não adicionou nenhum produto!")
+            if self.parcela_at > 1 and self.parcela_at < 4:
+                self.valor_total += (self.valor_total * 5/100)
+                val_cort = self.valor_total / self.parcela_at
+                self.par.setText(f"Valor parcelado em ({self.parcela_at}x):")
+                self.val_total.setText(locale.currency(self.valor_total, grouping=True))
+                self.cela.setText(locale.currency(val_cort, grouping=True))
+                self.inserir_din.setEnabled(False)
+                self.parcelas.setEnabled(False)
+                self.final_btn.setEnabled(True)
+            
+            elif self.parcela_at >= 4:
+                self.valor_total += (self.valor_total*15/100)
+                val_cort = self.valor_total / self.parcela_at
+                self.par.setText(f"Valor parcelado em ({self.parcela_at}x):")
+                self.val_total.setText(locale.currency(self.valor_total, grouping=True))
+                self.cela.setText(locale.currency(val_cort, grouping=True))
+                self.inserir_din.setEnabled(False)
+                self.parcelas.setEnabled(False)
+                self.final_btn.setEnabled(True)
+                
 
+            
+                     
+    def parcela(self):
+        self.parcela_at = self.parcelas.currentText()
+        self.inserir_din.setEnabled(True)
+        match(self.parcela_at):
+            case "2x": self.parcela_at = 2
+            case "3x": self.parcela_at = 3
+            case "4x": self.parcela_at = 4
+            case "5x": self.parcela_at = 5
+            case "6x": self.parcela_at = 6
+            case "7x": self.parcela_at = 7
+            case "8x": self.parcela_at = 8
+ 
+
+        
     def final(self):
         try:
             if self.cl_atual != None:
@@ -241,3 +318,6 @@ class VendaPg(QWidget):
         tempo = QTime.currentTime()
         text = tempo.toString("hh:mm:ss")
         self.label_date.setText(text)
+        data = QDate.currentDate()
+        texto = data.toString("dd/MM/yyyy")
+        self.data_label.setText(texto)
