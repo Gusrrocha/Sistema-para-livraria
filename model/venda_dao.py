@@ -1,4 +1,5 @@
 from model import dbase
+from model.venda import Venda
 def add(venda):
     try:
         conn = dbase.connect()
@@ -23,3 +24,20 @@ def selectRecent():
     finally:
         conn.close()
     return result
+
+def selectAll():
+    list = []
+    try:
+        conn = dbase.connect()
+        cursor = conn.cursor()
+        sql = """SELECT * FROM Venda ORDER BY id DESC"""
+        cursor.execute(sql)
+        result = cursor.fetchall()
+        for v in result:
+            novo = Venda(v[0], v[1], v[2], v[3])
+            list.append(novo)
+    except Exception as k:
+        print(k)
+    finally:
+        conn.close()
+    return list

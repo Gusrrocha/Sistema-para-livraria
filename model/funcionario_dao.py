@@ -28,3 +28,16 @@ def log(us, se):
         conn.close()
     return result
 
+def selectOne(user):
+    try:
+        conn = dbase.connect()
+        cursor = conn.cursor()
+        sql = """SELECT * FROM Funcionario WHERE nome_de_usuario= '{}';""".format(user)
+        cursor.execute(sql)
+        result = cursor.fetchone()
+    except Exception as y:
+        print(y)
+    finally:
+        conn.close()
+    return result
+

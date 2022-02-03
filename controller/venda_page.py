@@ -291,7 +291,7 @@ class VendaPg(QWidget):
     def final(self):
         try:
             if self.cl_atual != None:
-                sale.add(Venda(None, self.cl_atual.nome, self.user_logged, self.valor_total, self.lista_item))
+                sale.add(Venda(None, self.cl_atual.nome, self.user_logged, self.valor_total))
                 QMessageBox.information(self, "Finalizado!", "Compra finalizada com sucesso!")
                 id_venda = sale.selectRecent()
                 for itemid in self.lista_iditem:

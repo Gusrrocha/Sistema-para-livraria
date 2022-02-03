@@ -47,22 +47,29 @@ class Login(QDialog):
             email = self.email.text()
             
             valid = QDoubleValidator(0, 100000000, 0)
-            if valid.validate(senha, 14)[0] == QValidator.Acceptable:
-                if len(str(senha)) == 8:
-                    fun_dao.reg(Funcionario(None, user, senha, email))
-                    self.cadastrar_btn.hide()
-                    self.registrar_btn.show()
-                    self.entrar_btn.show()
-                    self.email.hide()
-                    self.label_email.hide()
-                    self.cancelar_btn.hide()
-                    self.usuario.clear()
-                    self.senha.clear()
-                    self.email.clear()
+            if user != '' and email != '':
+                exist = fun_dao.selectOne(user)
+                if exist == None:
+                    if valid.validate(senha, 14)[0] == QValidator.Acceptable:
+                        if len(str(senha)) == 8:
+                            fun_dao.reg(Funcionario(None, user, senha, email))
+                            self.cadastrar_btn.hide()
+                            self.registrar_btn.show()
+                            self.entrar_btn.show()
+                            self.email.hide()
+                            self.label_email.hide()
+                            self.cancelar_btn.hide()
+                            self.usuario.clear()
+                            self.senha.clear()
+                            self.email.clear()
+                        else:
+                            QMessageBox.about(self, "Erro!", "A senha deve possuir 8 dígitos!")
+                    else:
+                        QMessageBox.about(self, "Erro!", "A senha está incorreta!")
                 else:
-                    QMessageBox.about(self, "Erro!", "A senha deve possuir 8 dígitos!")
+                    QMessageBox.warning(self, "Erro!", "O usuário já existe.")
             else:
-                QMessageBox.about(self, "Erro!", "A senha está incorreta!")
+                QMessageBox.warning(self, "Erro!", "Insira um nome!")
         except Exception as e:
             print(e)
         

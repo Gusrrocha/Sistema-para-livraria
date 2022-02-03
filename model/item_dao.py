@@ -37,6 +37,7 @@ def selectRecent():
     finally:
         conn.close()
     return result
+
 def selectAll():
     li = []
     try:
@@ -53,3 +54,28 @@ def selectAll():
     finally:
         conn.close()
     return li
+def deleteNull():
+    try:
+        conn = dbase.connect()
+        cursor = conn.cursor()
+        sql = """DELETE FROM ItemVenda WHERE id_venda is NULL"""
+        cursor.execute(sql)
+        conn.commit()
+    except Exception as d:
+        print(d)
+    finally:
+        conn.close()
+
+def selectAllOne(id):
+    lista = []
+    try:
+        conn = dbase.connect()
+        cursor = conn.cursor()
+        sql = """SELECT * FROM ItemVenda WHERE id_venda=?"""
+        cursor.execute(sql, [id])
+        result = cursor.fetchall()
+    except Exception as w:
+        print(w)
+    finally:
+        conn.close()
+    return result
