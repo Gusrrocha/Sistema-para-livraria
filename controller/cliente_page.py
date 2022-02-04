@@ -46,19 +46,20 @@ class ClientePage(QWidget):
             telefone = str(self.telefone.text())
             endereco = self.endereco.text()
             cpf = str(self.cpf.text())
-            f_um = cpf[:3]
-            f_dois = cpf[3:6]
-            f_tres = cpf[6:9]
-            f_quatro = cpf[9:]
-
-            f_tum = str(telefone[:2])
-            f_td = str(telefone[2])
-            f_ttt = str(telefone[3:7])
-            f_tt = str(telefone[7:])
-            formated = "{}.{}.{}-{}".format(f_um,f_dois,f_tres,f_quatro)
-            formated_tel = "({}) {} {}-{}".format(f_tum, f_td, f_ttt, f_tt)
+            
             valid = QDoubleValidator(0, 100000000000, 0)
             if nome != '' and telefone != '' and endereco != '' and cpf != '':
+                f_um = cpf[:3]
+                f_dois = cpf[3:6]
+                f_tres = cpf[6:9]
+                f_quatro = cpf[9:]
+
+                f_tum = str(telefone[:2])
+                f_td = str(telefone[2])
+                f_ttt = str(telefone[3:7])
+                f_tt = str(telefone[7:])
+                formated = "{}.{}.{}-{}".format(f_um,f_dois,f_tres,f_quatro)
+                formated_tel = "({}) {} {}-{}".format(f_tum, f_td, f_ttt, f_tt)
                 if valid.validate(telefone, 14)[0] == QValidator.Acceptable and valid.validate(cpf, 14)[0] == QValidator.Acceptable:
                     if len(str(telefone)) == 11 and len(str(cpf)) == 11:
                         if self.c_at == None:

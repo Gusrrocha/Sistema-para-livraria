@@ -17,7 +17,11 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Boosysk</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../assets/icons/icon_mW_placeholder.png</normaloff>../assets/icons/icon_mW_placeholder.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -345,7 +349,7 @@
                    <enum>QFrame::StyledPanel</enum>
                   </property>
                   <property name="editTriggers">
-                   <set>QAbstractItemView::NoEditTriggers</set>
+                   <set>QAbstractItemView::AllEditTriggers</set>
                   </property>
                   <property name="alternatingRowColors">
                    <bool>true</bool>
@@ -355,6 +359,9 @@
                   </property>
                   <property name="sortingEnabled">
                    <bool>false</bool>
+                  </property>
+                  <property name="cornerButtonEnabled">
+                   <bool>true</bool>
                   </property>
                   <column>
                    <property name="text">
@@ -379,6 +386,11 @@
                   <column>
                    <property name="text">
                     <string>Valor</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>Ações</string>
                    </property>
                   </column>
                  </widget>

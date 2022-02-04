@@ -23,6 +23,7 @@ class MainWindow(QMainWindow):
         self.table_venda.verticalHeader().setVisible(False)
         self.table_venda.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.table_venda.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeToContents)
+        self.table_venda.horizontalHeader().setSectionResizeMode(5, QHeaderView.ResizeToContents)
         menu = QMenu()
         self.mais_fun.setMenu(menu)
         action_um = menu.addAction('Editar funcionário')
@@ -69,6 +70,16 @@ class MainWindow(QMainWindow):
         self.table_venda.setRowCount(0)
         for v in self.l:
             self.addVenda(v)
+        for i in range(self.table_venda.rowCount()):
+            if self.table_venda.rowCount() > -1:
+                button = QPushButton(self.table_venda)
+                button.setText('...')
+                button.setGeometry(30,30,30,30)
+                button.setFixedSize(30,30)
+                button.setToolTip('Visualizar Itens')
+                button.setCursor(Qt.PointingHandCursor)
+                button.clicked.connect(self.ver_mais)
+                self.table_venda.setCellWidget(i, 5, button)
     
     def addVenda(self, v):
         locale.setlocale(locale.LC_ALL, '')
@@ -88,4 +99,19 @@ class MainWindow(QMainWindow):
         self.table_venda.setItem(row, 3, quant_item)
         self.table_venda.setItem(row, 4, valor)
         
+    def ver_mais(self):
+        locale.setlocale(locale.LC_ALL, '')
+        r = self.table_venda.currentRow()
+        i = self.table_venda.item(r, 0).text()
+        it = item_dao.selectAllOne(i)
+        l = []
+        for item in it:
+            string = f"Nome: {item.produto_nome}\n Quantidade: {item.quantidade}\n Valor(un): {locale.currency(item.produto_valor, grouping=True)}\n"
+            l.append(string)
+        
+        l_format = '\n'.join(l)
+        QMessageBox.information(self, "Lista de itens", f"{l_format}")
+
+
+
         

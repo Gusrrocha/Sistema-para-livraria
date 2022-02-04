@@ -74,8 +74,11 @@ def selectAllOne(id):
         sql = """SELECT * FROM ItemVenda WHERE id_venda=?"""
         cursor.execute(sql, [id])
         result = cursor.fetchall()
+        for item in result:
+            no = Item(item[0], None, item[1], item[2], item[3], item[4])
+            lista.append(no)
     except Exception as w:
         print(w)
     finally:
         conn.close()
-    return result
+    return lista
