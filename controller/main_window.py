@@ -106,7 +106,7 @@ class MainWindow(QMainWindow):
         it = item_dao.selectAllOne(i)
         l = []
         for item in it:
-            string = f"Nome: {item.produto_nome}\n Quantidade: {item.quantidade}\n Valor(un): {locale.currency(item.produto_valor, grouping=True)}\n"
+            string = f"Nome: {item.produto_nome}\n Quantidade: {item.quantidade}\n Valor total: {locale.currency(item.produto_valor, grouping=True)}\n"
             l.append(string)
         
         l_format = '\n'.join(l)
