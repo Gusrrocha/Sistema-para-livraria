@@ -32,7 +32,7 @@ class Login(QDialog):
                 else:
                     QMessageBox.about(self, "Acesso aceito!", "Entrou com êxito!")
                     user_logged = us
-                    self.mainWindow = MainWindow(user_logged)
+                    self.mainWindow = MainWindow(user_logged, self)
                     self.mainWindow.show()
                     
                     self.hide()

@@ -8,11 +8,12 @@ from controller.estoque import Storage
 import model.venda_dao as Sale
 import model.item_dao as item_dao
 class MainWindow(QMainWindow):
-    def __init__(self, user_logged):
+    def __init__(self, user_logged, login):
         super().__init__()
         uic.loadUi('view/main_window.ui', self)
 
         self.user_logged = user_logged
+        self.login = login
         self.l = []
         self.funcionario_label.setText(user_logged+"!")
         self.clientes_btn.clicked.connect(self.showCliente)
@@ -43,7 +44,8 @@ class MainWindow(QMainWindow):
         self.tabela.setCurrentIndex(1)
 
     def sair(self):
-        pass
+        self.login.show()
+        self.hide()
 
     def edit_fun(self):
         item_dao.deleteNull()
@@ -91,8 +93,13 @@ class MainWindow(QMainWindow):
         cliente = QTableWidgetItem(v.cliente)
         funcionario = QTableWidgetItem(v.funcionario)
         quant_item = QTableWidgetItem(str(len(list)))
-        valor = QTableWidgetItem(str(val))
-
+        d = 0
+        for i in list:
+            d += i.produto_valor
+        if d < v.valor:
+            valor = QTableWidgetItem(str(val+' (COM JUROS)'))
+        else:
+            valor = QTableWidgetItem(str(val))
         self.table_venda.setItem(row, 0, id)
         self.table_venda.setItem(row, 1, cliente)
         self.table_venda.setItem(row, 2, funcionario)
@@ -104,6 +111,7 @@ class MainWindow(QMainWindow):
         r = self.table_venda.currentRow()
         i = self.table_venda.item(r, 0).text()
         it = item_dao.selectAllOne(i)
+        v = self.table_venda.item(r, 4).text()
         l = []
         for item in it:
             string = f"Nome: {item.produto_nome}\n Quantidade: {item.quantidade}\n Valor total: {locale.currency(item.produto_valor, grouping=True)}\n"
