@@ -407,7 +407,7 @@
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                </property>
                <property name="placeholderText">
-                <string>SOMENTE NÚMEROS</string>
+                <string>R$ 00,00</string>
                </property>
               </widget>
              </item>

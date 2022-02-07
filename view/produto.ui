@@ -131,7 +131,7 @@
                <item>
                 <widget class="QLineEdit" name="valor_prop">
                  <property name="placeholderText">
-                  <string>Digite o valor do produto</string>
+                  <string>Digite o valor do produto (R$ 00,00)</string>
                  </property>
                 </widget>
                </item>
@@ -149,7 +149,7 @@
                <item>
                 <widget class="QLineEdit" name="est_prop">
                  <property name="placeholderText">
-                  <string>Digite o valor de compra do produto</string>
+                  <string>Digite o valor de compra do produto (R$ 00,00)</string>
                  </property>
                 </widget>
                </item>

@@ -17,7 +17,8 @@ class ClientePage(QWidget):
         self.painel_clientes.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeToContents)
         self.lupa.clicked.connect(self.buscar)
         self.cancel_edit_btn.clicked.connect(self.stopEdit)
-        
+        self.cpf.setMaxLength(11)
+        self.telefone.setMaxLength(11)
         self.load()
         self.painel_clientes.clicked.connect(self.cL)
 
@@ -55,11 +56,11 @@ class ClientePage(QWidget):
                 f_quatro = cpf[9:]
 
                 f_tum = str(telefone[:2])
-                f_td = str(telefone[2])
+                # f_td = str(telefone[2])
                 f_ttt = str(telefone[3:7])
                 f_tt = str(telefone[7:])
                 formated = "{}.{}.{}-{}".format(f_um,f_dois,f_tres,f_quatro)
-                formated_tel = "({}) {} {}-{}".format(f_tum, f_td, f_ttt, f_tt)
+                formated_tel = "({}) 9 {}-{}".format(f_tum, f_ttt, f_tt)
                 if valid.validate(telefone, 14)[0] == QValidator.Acceptable and valid.validate(cpf, 14)[0] == QValidator.Acceptable:
                     if len(str(telefone)) == 11 and len(str(cpf)) == 11:
                         if self.c_at == None:

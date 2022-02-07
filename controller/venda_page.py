@@ -1,3 +1,4 @@
+from re import S
 from qt_core import *
 import locale
 import model.cliente_dao as cl
@@ -11,7 +12,6 @@ class VendaPg(QWidget):
     def __init__(self, user_logged, mainWindow):
         super().__init__()
         uic.loadUi('view/venda_pg.ui', self)
-
         self.mainWindow = mainWindow
         self.lista_prd = None
         self.lista = None
@@ -24,6 +24,7 @@ class VendaPg(QWidget):
         self.valor = None
         self.valor_total = 0
         self.falta = 0
+        self.i = 0
         self.user_logged = user_logged
         self.fun_atual_v.setText(user_logged)
         self.val_total.setText("R$ 0,00")
@@ -55,12 +56,22 @@ class VendaPg(QWidget):
         self.cancel_item_btn.clicked.connect(self.cancelItem)
         self.final_in_btn.clicked.connect(self.fechar)
         self.parcelas.currentIndexChanged.connect(self.parcela)
+        self.BOTT = 0.00
+        self.TOP = 9999.00
+        self.valid = QDoubleValidator(self.BOTT, self.TOP, 2, notation=QDoubleValidator.StandardNotation)
+        self.din_lineEdit.setValidator(self.valid)
+        self.din_lineEdit.textChanged.connect(self.formatd)
+        self.din_lineEdit.returnPressed.connect(self.mCl)
         timer = QTimer(self)
         timer.timeout.connect(self.showtime)
         timer.start()
         self.load()
         self.load_prd()
 
+    def formatd(self):
+        s = self.din_lineEdit.text()
+        self.valid.validate(s, 14)[0]
+         
     def fechar(self):
         quest = QMessageBox.question(self, "Fechar", "Você tem certeza que quer fechar?", QMessageBox.Yes| QMessageBox.No)
         
@@ -76,7 +87,7 @@ class VendaPg(QWidget):
             self.valor_item.setEnabled(False)
             self.table_item.setEnabled(False)
             self.pag_comboBox.setEnabled(False)
-            
+    
     def pagamento(self):
         if self.pag_comboBox.currentIndex() == 1:
             self.troco_label.hide()
@@ -237,23 +248,30 @@ class VendaPg(QWidget):
 
     def mCl(self):
         locale.setlocale(locale.LC_ALL, '')
+        
         if self.pag_comboBox.currentIndex() != 1:
-            if self.valor_total != 0:
-                dinheiro_recebido = int(self.din_lineEdit.text())
-                self.falta += dinheiro_recebido
-                falta = self.valor_total - self.falta
-                falta_f = locale.currency(falta, grouping=True)
-                if self.falta < self.valor_total:
-                    self.falta_lineEdit.setText(falta_f)
+            if self.valid.validate(self.din_lineEdit.text(), 14)[0] == QValidator.Acceptable:
+                d = self.din_lineEdit.text()
+                z = d.replace(',', '.')
+                if self.valor_total != 0:
+                    dinheiro_recebido = float(z)
+                    self.falta += dinheiro_recebido
+                    falta = self.valor_total - self.falta
+                    falta_f = locale.currency(falta, grouping=True)
+                    if self.falta < self.valor_total:
+                        self.falta_lineEdit.setText(falta_f)
+                    else:
+                        self.din_lineEdit.setEnabled(False)
+                        self.inserir_din.setEnabled(False)
+                        self.final_btn.setEnabled(True)
+                        troco = self.falta - self.valor_total
+                        troco_f = locale.currency(troco, grouping=True)
+                        self.troco.setText(troco_f)
+                        self.falta_lineEdit.setText("R$ 0,00")
                 else:
-                    self.inserir_din.setEnabled(False)
-                    self.final_btn.setEnabled(True)
-                    troco = self.falta - self.valor_total
-                    troco_f = locale.currency(troco, grouping=True)
-                    self.troco.setText(troco_f)
-                    self.falta_lineEdit.setText("R$ 0,00")
+                    QMessageBox.warning(self, "Aviso!", "Você ainda não adicionou nenhum produto!")
             else:
-                QMessageBox.warning(self, "Aviso!", "Você ainda não adicionou nenhum produto!")
+                QMessageBox.warning(self, "Erro!", "Insira corretamente os dados!")
         else:
             if self.parcela_at > 1 and self.parcela_at < 4:
                 self.valor_total += (self.valor_total * 5/100)
@@ -274,7 +292,7 @@ class VendaPg(QWidget):
                 self.inserir_din.setEnabled(False)
                 self.parcelas.setEnabled(False)
                 self.final_btn.setEnabled(True)
-                
+        
 
     def parcela(self):
         self.parcela_at = self.parcelas.currentText()
@@ -308,7 +326,10 @@ class VendaPg(QWidget):
                 QMessageBox.warning(self, "Erro!", "Insira um cliente!")
         except Exception as b:
             print(b)
+
+
         
+
 
     def showtime(self):
         tempo = QTime.currentTime()

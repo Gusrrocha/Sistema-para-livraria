@@ -14,15 +14,24 @@ class ProP(QWidget):
         self.remover_btn.clicked.connect(self.remover)
         self.cancelar_btn.clicked.connect(self.cancelar)
         self.salvar_btn.clicked.connect(self.salvar)
+        self.validator = QDoubleValidator(0.00, 9999.00, 2, notation=QDoubleValidator.StandardNotation)
+        self.est_prop.setValidator(self.validator)
+        self.valor_prop.setValidator(self.validator)
+        self.valor_prop.textChanged.connect(self.forn)
+        self.est_prop.textChanged.connect(self.form)
 
-
-        
+        self.quant_prop.setValue(1)
         self.painel_produtos.verticalHeader().setVisible(False)
         self.painel_produtos.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.painel_produtos.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeToContents)
         self.painel_produtos.clicked.connect(self.click)
         self.load()
-    
+
+    def forn(self):
+        self.validator.validate(self.valor_prop.text(), 14)[0]
+    def form(self):
+        self.validator.validate(self.est_prop.text(), 14)[0]
+
     def remover(self):
         prop_dao.removeP(self.prod_at.id)
         self.remover_btn.hide()
@@ -39,15 +48,17 @@ class ProP(QWidget):
         qt = self.quant_prop.value()
         valor = self.valor_prop.text()
         valor_c = self.est_prop.text()
-        val = QDoubleValidator(0, float('inf'), 0)
+
         try:
             if nome != '' and qt != 0 and valor != '' and valor_c != '':
-                if val.validate(valor, 14)[0] == QValidator.Acceptable and val.validate(valor_c, 14)[0] == QValidator.Acceptable:
+                if self.validator.validate(valor, 14)[0] == QValidator.Acceptable and self.validator.validate(valor_c, 14)[0] == QValidator.Acceptable:
+                    val_ = valor.replace(',','.')
+                    val_c = valor_c.replace(',','.')
                     if self.prod_at != None:
-                        prop_dao.editProd(Produto(self.prod_at.id, nome, qt, valor, valor_c))
+                        prop_dao.editProd(Produto(self.prod_at.id, nome, qt, val_, val_c))
                         self.load()
                     else:
-                        prop_dao.addProd(Produto(None, nome, qt, valor, valor_c))
+                        prop_dao.addProd(Produto(None, nome, qt, val_, val_c))
                         self.load()
                 else:
                     QMessageBox.warning(self, "Erro!", "Apenas números inteiros nas lacunas de valores!")              
