@@ -187,6 +187,8 @@ class VendaPg(QWidget):
         self.valor_total -= self.item_atual.produto_valor
         self.val_total.setText(locale.currency(self.valor_total, grouping=True))
         self.falta_lineEdit.setText(str(locale.currency(self.valor_total, grouping=True)))
+        qt_sql = self.item_atual.quantidade
+        st.update(self.item_atual.produto_id, qt_sql)
         item_dao.remove(self.item_atual.id)
         self.lista_item.remove(self.item_atual)
         self.removerItem_btn.setEnabled(False)
@@ -197,6 +199,7 @@ class VendaPg(QWidget):
         self.quant_produto.setEnabled(True)
         self.valor_item.setEnabled(True)
         self.load_item()
+        self.load_prd()
         
     def tb(self, item, cont):
         locale.setlocale(locale.LC_ALL, '')
@@ -238,6 +241,7 @@ class VendaPg(QWidget):
             self.valor_item.setText(str(self.valor))
             if self.prd_atual.quantidade != 0:
                 self.addItem_btn.setEnabled(True)
+                self.quant_produto.setValue(1)
             else:
                 self.addItem_btn.setEnabled(False)
                 QMessageBox.information(self, 'Sem itens', 'O estoque de itens do produto "{}" acabou'.format(self.prd_atual.nome))
