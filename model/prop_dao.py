@@ -30,7 +30,9 @@ def editProd(produto):
         conn = dbase.connect()
         cursor = conn.cursor()
         sql = """UPDATE Produto SET nome=?, qt=?, valor=?, valor_compra=? WHERE id=?"""
-        cursor.execute(sql, produto.id)
+        p = produto.getProd()
+        p.append(produto.id)
+        cursor.execute(sql, p)
         conn.commit()
     except Exception as a:
         print(a)
@@ -53,3 +55,4 @@ def selectAll():
     finally:
         conn.close()
     return l_p
+

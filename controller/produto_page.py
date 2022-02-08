@@ -82,19 +82,21 @@ class ProP(QWidget):
 
         val_p = locale.currency(produto.valor_venda, grouping=True)
         val_c = locale.currency(produto.valor_compra, grouping=True)
-        
+        luc_pre = locale.currency(produto.valor_venda-produto.valor_compra, grouping=True)
         
         id = QTableWidgetItem(str(produto.id))
         nome = QTableWidgetItem(produto.nome)
         qtd = QTableWidgetItem(str(produto.quantidade))
         valor_ = QTableWidgetItem(str(val_p))
         valor_co = QTableWidgetItem(str(val_c))
+        lucr_prej = QTableWidgetItem(str(luc_pre))
 
         self.painel_produtos.setItem(rowCount, 0, id)
         self.painel_produtos.setItem(rowCount, 1, nome)
         self.painel_produtos.setItem(rowCount, 2, qtd)
         self.painel_produtos.setItem(rowCount, 3, valor_)
         self.painel_produtos.setItem(rowCount, 4, valor_co)
+        self.painel_produtos.setItem(rowCount, 5, lucr_prej)
     
     def click(self):
         self.cancelar_btn.show()

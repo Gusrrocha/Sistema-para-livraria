@@ -24,13 +24,13 @@ class Login(QDialog):
         se = self.senha.text()
         try:
             if us == '' and se == '':
-                QMessageBox.about(self, "Erro!", "Insira os dados!")
+                QMessageBox.warning(self, "Erro!", "Insira os dados!")
             else:
                 login = fun_dao.log(us, se)
                 if login == None:
-                    QMessageBox.about(self, "Erro!", "Usuário ou senha incorretos!")
+                    QMessageBox.warning(self, "Erro!", "Usuário ou senha incorretos!")
                 else:
-                    QMessageBox.about(self, "Acesso aceito!", "Entrou com êxito!")
+                    QMessageBox.information(self, "Acesso aceito!", "Entrou com êxito!")
                     user_logged = us
                     self.mainWindow = MainWindow(user_logged, self)
                     self.mainWindow.show()

@@ -5,4 +5,5 @@ class FunOP(QWidget):
         uic.loadUi('view/fun.ui', self)
 
         self.user_logged = user_logged
+        
 

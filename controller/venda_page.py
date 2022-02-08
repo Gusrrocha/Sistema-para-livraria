@@ -5,6 +5,7 @@ import model.cliente_dao as cl
 import model.prop_dao as pr
 import model.item_dao as item_dao
 import model.venda_dao as sale
+import model.storage_dao as st
 from model.venda import Venda
 from model.item import Item
 from model import dbase
@@ -25,6 +26,7 @@ class VendaPg(QWidget):
         self.valor_total = 0
         self.falta = 0
         self.i = 0
+        self.q = 0
         self.user_logged = user_logged
         self.fun_atual_v.setText(user_logged)
         self.val_total.setText("R$ 0,00")
@@ -57,7 +59,7 @@ class VendaPg(QWidget):
         self.final_in_btn.clicked.connect(self.fechar)
         self.parcelas.currentIndexChanged.connect(self.parcela)
         self.BOTT = 0.00
-        self.TOP = 9999.00
+        self.TOP = 99999.00
         self.valid = QDoubleValidator(self.BOTT, self.TOP, 2, notation=QDoubleValidator.StandardNotation)
         self.din_lineEdit.setValidator(self.valid)
         self.din_lineEdit.textChanged.connect(self.formatd)
@@ -125,10 +127,12 @@ class VendaPg(QWidget):
 
     def load_prd(self):
         self.lista_prd = pr.selectAll()
-        i = 0
-        for p in self.lista_prd:
-            self.produto_comboBox.insertItem(i, p.nome)
-            i += 1
+        if self.q == 0:
+            i = 0
+            self.q += 1
+            for p in self.lista_prd:
+                self.produto_comboBox.insertItem(i, p.nome)
+                i += 1
         self.produto_comboBox.currentIndexChanged.connect(self.prdSelected)
 
     def load(self):
@@ -153,7 +157,9 @@ class VendaPg(QWidget):
         nome = self.prd_atual.nome
         qt = self.quant_produto.value()
         valor = self.prd_atual.valor_venda*qt
-
+        qt_sql = self.prd_atual.quantidade-qt
+        st.update(self.prd_atual.id, qt_sql)
+        self.lista_prd
         item_dao.add(Item(None, id_prd, None, nome, qt, valor))
         id_item = item_dao.selectRecent()
         self.lista_item.append(Item(id_item[0][0], id_prd, None, nome, qt, valor))
@@ -164,6 +170,7 @@ class VendaPg(QWidget):
         self.falta_lineEdit.setText(str(locale.currency(self.valor_total, grouping=True)))
         self.final_in_btn.setEnabled(True)
         self.load_item()
+        self.load_prd()
     
     def cancelItem(self):
         self.removerItem_btn.setEnabled(False)
@@ -225,10 +232,15 @@ class VendaPg(QWidget):
     def prdSelected(self, index):
         locale.setlocale(locale.LC_ALL, '')
         if self.produto_comboBox.currentText() != "Escolha o produto":
-            self.addItem_btn.setEnabled(True)
             self.prd_atual = self.lista_prd[index]
+            self.quant_produto.setMaximum(self.prd_atual.quantidade)
             self.valor = locale.currency(self.prd_atual.valor_venda, grouping=True)
             self.valor_item.setText(str(self.valor))
+            if self.prd_atual.quantidade != 0:
+                self.addItem_btn.setEnabled(True)
+            else:
+                self.addItem_btn.setEnabled(False)
+                QMessageBox.information(self, 'Sem itens', 'O estoque de itens do produto "{}" acabou'.format(self.prd_atual.nome))
         else:
             self.valor_item.setText("R$ 0,00")
             self.addItem_btn.setEnabled(False)

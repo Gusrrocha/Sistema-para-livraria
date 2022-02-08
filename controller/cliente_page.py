@@ -1,6 +1,14 @@
 from qt_core import *
 from model.cliente import Cliente
 import model.cliente_dao as cliente_dao
+class TableModel(QAbstractTableModel):
+    def __init__(self, data):
+        super().__init__()
+        self._data = data
+
+    def data(self, index, role):
+        if role == Qt.DisplayRole:
+            return self._data[index.row()][index.column()]
 class ClientePage(QWidget):
     l_c = []
     c_at = None
@@ -15,7 +23,6 @@ class ClientePage(QWidget):
         self.painel_clientes.verticalHeader().setVisible(False)
         self.painel_clientes.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.painel_clientes.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeToContents)
-        self.lupa.clicked.connect(self.buscar)
         self.cancel_edit_btn.clicked.connect(self.stopEdit)
         self.cpf.setMaxLength(11)
         self.telefone.setMaxLength(11)

@@ -251,6 +251,11 @@
        <string>Valor de compra</string>
       </property>
      </column>
+     <column>
+      <property name="text">
+       <string>Lucro/prejuízo</string>
+      </property>
+     </column>
     </widget>
    </item>
   </layout>
