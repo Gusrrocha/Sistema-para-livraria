@@ -62,6 +62,7 @@ class VendaPg(QWidget):
         self.cancel_item_btn.clicked.connect(self.cancelItem)
         self.final_in_btn.clicked.connect(self.fechar)
         self.parcelas.currentIndexChanged.connect(self.parcela)
+        qApp.aboutToQuit.connect(self.close)
         self.BOTT = 0.00
         self.TOP = 99999.00
         self.valid = QDoubleValidator(self.BOTT, self.TOP, 2, notation=QDoubleValidator.StandardNotation)
@@ -72,7 +73,15 @@ class VendaPg(QWidget):
         timer.start()
         self.load()
         self.load_prd()
-
+    
+    def close(self):
+        for item in self.lista_item:
+            for produto in self.lista_prd:
+                if produto.id == item.produto_id:
+                    qt = produto.quantidade
+                    qt += item.quantidade
+                    st.update(item.produto_id, qt)
+                    qt = 0
     def deleteChanges(self):
         if self.other == 1:
             pass
