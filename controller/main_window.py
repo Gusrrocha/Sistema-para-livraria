@@ -59,7 +59,7 @@ class MainWindow(QMainWindow):
     
     def venda_pg(self):
         item_dao.deleteNull()
-        self.tabela.insertWidget(4, VendaPg(self.user_logged, self))
+        self.tabela.insertWidget(4, VendaPg(self.user_logged, self, self.tabela))
         self.tabela.setCurrentIndex(4)
 
     def estoque(self):

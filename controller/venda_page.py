@@ -10,10 +10,11 @@ from model.venda import Venda
 from model.item import Item
 from model import dbase
 class VendaPg(QWidget):
-    def __init__(self, user_logged, mainWindow):
+    def __init__(self, user_logged, mainWindow, tabela):
         super().__init__()
         uic.loadUi('view/venda_pg.ui', self)
         self.mainWindow = mainWindow
+        self.tabela = tabela
         self.lista_prd = None
         self.lista = None
         self.lista_item = []
@@ -27,6 +28,7 @@ class VendaPg(QWidget):
         self.falta = 0
         self.i = 0
         self.q = 0
+        self.tabela.currentChanged.connect(self.deleteChanges)
         self.user_logged = user_logged
         self.fun_atual_v.setText(user_logged)
         self.val_total.setText("R$ 0,00")
@@ -70,6 +72,14 @@ class VendaPg(QWidget):
         self.load()
         self.load_prd()
 
+    def deleteChanges(self):
+        for item in self.lista_item:
+            for produto in self.lista_prd:
+                if produto.id == item.produto_id:
+                    qt = produto.quantidade
+                    qt += item.quantidade
+                    st.update(item.produto_id, qt)
+                    qt = 0
     def formatd(self):
         s = self.din_lineEdit.text()
         self.valid.validate(s, 14)[0]
@@ -159,7 +169,6 @@ class VendaPg(QWidget):
         valor = self.prd_atual.valor_venda*qt
         qt_sql = self.prd_atual.quantidade-qt
         st.update(self.prd_atual.id, qt_sql)
-        self.lista_prd
         item_dao.add(Item(None, id_prd, None, nome, qt, valor))
         id_item = item_dao.selectRecent()
         self.lista_item.append(Item(id_item[0][0], id_prd, None, nome, qt, valor))
