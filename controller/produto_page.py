@@ -105,8 +105,8 @@ class ProP(QWidget):
         self.prod_at = self.l_p[row]
         self.nome_prop.setText(self.prod_at.nome)
         self.quant_prop.setValue(self.prod_at.quantidade)
-        self.valor_prop.setText(str(self.prod_at.valor_venda))
-        self.est_prop.setText(str(self.prod_at.valor_compra))
+        self.valor_prop.setText(str(self.prod_at.valor_venda).replace('.',','))
+        self.est_prop.setText(str(self.prod_at.valor_compra).replace('.',','))
 
 
     def clear(self):

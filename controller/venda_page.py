@@ -67,7 +67,6 @@ class VendaPg(QWidget):
         self.valid = QDoubleValidator(self.BOTT, self.TOP, 2, notation=QDoubleValidator.StandardNotation)
         self.din_lineEdit.setValidator(self.valid)
         self.din_lineEdit.textChanged.connect(self.formatd)
-        self.din_lineEdit.returnPressed.connect(self.mCl)
         timer = QTimer(self)
         timer.timeout.connect(self.showtime)
         timer.start()
@@ -105,6 +104,7 @@ class VendaPg(QWidget):
             self.valor_item.setEnabled(False)
             self.table_item.setEnabled(False)
             self.pag_comboBox.setEnabled(False)
+            self.din_lineEdit.returnPressed.connect(self.mCl)
     
     def pagamento(self):
         if self.pag_comboBox.currentIndex() == 1:
@@ -296,6 +296,7 @@ class VendaPg(QWidget):
                     self.falta += dinheiro_recebido
                     falta = self.valor_total - self.falta
                     falta_f = locale.currency(falta, grouping=True)
+                    self.din_lineEdit.clear()
                     if self.falta < self.valor_total:
                         self.falta_lineEdit.setText(falta_f)
                     else:
