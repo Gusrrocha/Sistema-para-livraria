@@ -168,18 +168,25 @@ class VendaPg(QWidget):
         qt = self.quant_produto.value()
         valor = self.prd_atual.valor_venda*qt
         qt_sql = self.prd_atual.quantidade-qt
-        st.update(self.prd_atual.id, qt_sql)
-        item_dao.add(Item(None, id_prd, None, nome, qt, valor))
-        id_item = item_dao.selectRecent()
-        self.lista_item.append(Item(id_item[0][0], id_prd, None, nome, qt, valor))
-        self.lista_iditem.append(id_item[0][0])
-        self.valor_total += valor
-        val_format = locale.currency(self.valor_total, grouping=True)
-        self.val_total.setText(val_format)
-        self.falta_lineEdit.setText(str(locale.currency(self.valor_total, grouping=True)))
-        self.final_in_btn.setEnabled(True)
-        self.load_item()
-        self.load_prd()
+        go = 0
+        for i in self.lista_item:
+            if i.produto_id == id_prd:
+                go += 1
+        if go == 0:
+            st.update(self.prd_atual.id, qt_sql)
+            item_dao.add(Item(None, id_prd, None, nome, qt, valor))
+            id_item = item_dao.selectRecent()
+            self.lista_item.append(Item(id_item[0][0], id_prd, None, nome, qt, valor))
+            self.lista_iditem.append(id_item[0][0])
+            self.valor_total += valor
+            val_format = locale.currency(self.valor_total, grouping=True)
+            self.val_total.setText(val_format)
+            self.falta_lineEdit.setText(str(locale.currency(self.valor_total, grouping=True)))
+            self.final_in_btn.setEnabled(True)
+            self.load_item()
+            self.load_prd()
+        else:
+            QMessageBox.warning(self, "Erro!", "Remova o item primeiro, para inseri-lo de novo!")
     
     def cancelItem(self):
         self.removerItem_btn.setEnabled(False)
