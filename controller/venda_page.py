@@ -28,6 +28,8 @@ class VendaPg(QWidget):
         self.falta = 0
         self.i = 0
         self.q = 0
+        self.go = 0
+        self.other = 0
         self.tabela.currentChanged.connect(self.deleteChanges)
         self.user_logged = user_logged
         self.fun_atual_v.setText(user_logged)
@@ -73,13 +75,17 @@ class VendaPg(QWidget):
         self.load_prd()
 
     def deleteChanges(self):
-        for item in self.lista_item:
-            for produto in self.lista_prd:
-                if produto.id == item.produto_id:
-                    qt = produto.quantidade
-                    qt += item.quantidade
-                    st.update(item.produto_id, qt)
-                    qt = 0
+        if self.other == 1:
+            pass
+            
+        else: 
+            for item in self.lista_item:
+                for produto in self.lista_prd:
+                    if produto.id == item.produto_id:
+                        qt = produto.quantidade
+                        qt += item.quantidade
+                        st.update(item.produto_id, qt)
+                        qt = 0
     def formatd(self):
         s = self.din_lineEdit.text()
         self.valid.validate(s, 14)[0]
@@ -168,11 +174,11 @@ class VendaPg(QWidget):
         qt = self.quant_produto.value()
         valor = self.prd_atual.valor_venda*qt
         qt_sql = self.prd_atual.quantidade-qt
-        go = 0
+        self.go = 0
         for i in self.lista_item:
             if i.produto_id == id_prd:
-                go += 1
-        if go == 0:
+                self.go += 1
+        if self.go == 0:
             st.update(self.prd_atual.id, qt_sql)
             item_dao.add(Item(None, id_prd, None, nome, qt, valor))
             id_item = item_dao.selectRecent()
@@ -352,7 +358,7 @@ class VendaPg(QWidget):
                     conn.commit()
                     conn.close()
                 
-                        
+                self.other += 1
                 self.mainWindow.mainPage()
             else:
                 QMessageBox.warning(self, "Erro!", "Insira um cliente!")
