@@ -19,7 +19,6 @@ class MainWindow(QMainWindow):
         self.clientes_btn.clicked.connect(self.showCliente)
         self.produto_btn.clicked.connect(self.produto_page)
         self.venda_btn.clicked.connect(self.venda_pg)
-        self.estoque_btn.clicked.connect(self.estoque)
         self.home_btn.clicked.connect(self.mainPage)
         self.table_venda.verticalHeader().setVisible(False)
         self.table_venda.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
@@ -62,10 +61,6 @@ class MainWindow(QMainWindow):
         self.tabela.insertWidget(4, VendaPg(self.user_logged, self, self.tabela))
         self.tabela.setCurrentIndex(4)
 
-    def estoque(self):
-        item_dao.deleteNull()
-        self.tabela.insertWidget(5, Storage())
-        self.tabela.setCurrentIndex(5)
         
     def loadSale(self):
         self.l = Sale.selectAll()
