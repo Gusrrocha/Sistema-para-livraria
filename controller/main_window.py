@@ -28,8 +28,8 @@ class MainWindow(QMainWindow):
         self.mais_fun.setMenu(menu)
         action_um = menu.addAction('Editar funcionário')
         action_um.triggered.connect(self.edit_fun)
-        action_dois = menu.addAction('Sair')
-        action_dois.triggered.connect(self.sair)
+        self.action_dois = menu.addAction('Sair')
+        self.action_dois.triggered.connect(self.sair)
         self.loadSale()
 
     def mainPage(self):
@@ -58,7 +58,7 @@ class MainWindow(QMainWindow):
     
     def venda_pg(self):
         item_dao.deleteNull()
-        self.tabela.insertWidget(4, VendaPg(self.user_logged, self, self.tabela))
+        self.tabela.insertWidget(4, VendaPg(self.user_logged, self, self.tabela, self.action_dois))
         self.tabela.setCurrentIndex(4)
 
         

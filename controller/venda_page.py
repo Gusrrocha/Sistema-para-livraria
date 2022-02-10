@@ -10,11 +10,12 @@ from model.venda import Venda
 from model.item import Item
 from model import dbase
 class VendaPg(QWidget):
-    def __init__(self, user_logged, mainWindow, tabela):
+    def __init__(self, user_logged, mainWindow, tabela, action):
         super().__init__()
         uic.loadUi('view/venda_pg.ui', self)
         self.mainWindow = mainWindow
         self.tabela = tabela
+        self.action = action
         self.lista_prd = None
         self.lista = None
         self.lista_item = []
@@ -32,6 +33,7 @@ class VendaPg(QWidget):
         self.other = 0
         self.tabela.currentChanged.connect(self.deleteChanges)
         self.user_logged = user_logged
+        self.action.triggered.connect(self.deleteChanges)
         self.fun_atual_v.setText(user_logged)
         self.val_total.setText("R$ 0,00")
         self.valor_item.setText("R$ 0,00")
@@ -219,7 +221,7 @@ class VendaPg(QWidget):
         self.val_total.setText(locale.currency(self.valor_total, grouping=True))
         self.falta_lineEdit.setText(str(locale.currency(self.valor_total, grouping=True)))
         qt_sql = self.item_atual.quantidade
-        st.update(self.item_atual.produto_id, qt_sql)
+        st.updateM(self.item_atual.produto_id, qt_sql)
         item_dao.remove(self.item_atual.id)
         self.lista_item.remove(self.item_atual)
         self.removerItem_btn.setEnabled(False)
