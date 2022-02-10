@@ -21,3 +21,17 @@ def updateM(id, qt):
         print(x)
     finally:
         conn.close()
+
+def storage(id, qt):
+    try:
+        conn = dbase.connect()
+        cursor = conn.cursor()
+        sql = f"""UPDATE Produto SET saida=saida+{qt} WHERE id=?"""
+        cursor.execute(sql, [id])
+        conn.commit()
+    except Exception as z:
+        print(z)
+    finally:
+        conn.close()
+    
+def 

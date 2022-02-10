@@ -24,6 +24,7 @@ class MainWindow(QMainWindow):
         self.table_venda.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.table_venda.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeToContents)
         self.table_venda.horizontalHeader().setSectionResizeMode(5, QHeaderView.ResizeToContents)
+        self.table_venda.horizontalHeader().setSectionResizeMode(6, QHeaderView.ResizeToContents)
         menu = QMenu()
         self.mais_fun.setMenu(menu)
         action_um = menu.addAction('Editar funcionário')
@@ -76,7 +77,7 @@ class MainWindow(QMainWindow):
                 button.setToolTip('Visualizar Itens')
                 button.setCursor(Qt.PointingHandCursor)
                 button.clicked.connect(self.ver_mais)
-                self.table_venda.setCellWidget(i, 5, button)
+                self.table_venda.setCellWidget(i, 6, button)
     
     def addVenda(self, v):
         locale.setlocale(locale.LC_ALL, '')
@@ -88,6 +89,7 @@ class MainWindow(QMainWindow):
         cliente = QTableWidgetItem(v.cliente)
         funcionario = QTableWidgetItem(v.funcionario)
         quant_item = QTableWidgetItem(str(len(list)))
+
         d = 0
         for i in list:
             d += i.produto_valor
@@ -100,6 +102,7 @@ class MainWindow(QMainWindow):
         self.table_venda.setItem(row, 2, funcionario)
         self.table_venda.setItem(row, 3, quant_item)
         self.table_venda.setItem(row, 4, valor)
+        self.table_venda.setItem(row, 5, QTableWidgetItem(v.data))
         
     def ver_mais(self):
         locale.setlocale(locale.LC_ALL, '')

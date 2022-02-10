@@ -359,7 +359,11 @@ class VendaPg(QWidget):
     def final(self):
         try:
             if self.cl_atual != None:
-                sale.add(Venda(None, self.cl_atual.nome, self.user_logged, self.valor_total))
+                for i in self.lista_item:
+                    for p in self.lista_prd:
+                        if p.id == i.produto_id:
+                            st.storage(i.produto_id, i.quantidade)
+                sale.add(Venda(None, self.cl_atual.nome, self.user_logged, self.valor_total, QDateTime.currentDateTime().toString('dd/MM/yyyy '+' hh:mm:ss')))
                 QMessageBox.information(self, "Finalizado!", "Compra finalizada com sucesso!")
                 id_venda = sale.selectRecent()
                 for itemid in self.lista_iditem:

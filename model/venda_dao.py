@@ -4,7 +4,7 @@ def add(venda):
     try:
         conn = dbase.connect()
         cursor = conn.cursor()
-        sql = """INSERT INTO Venda (cliente, funcionario, valor) VALUES (?, ?, ?)"""
+        sql = """INSERT INTO Venda (cliente, funcionario, valor, data) VALUES (?, ?, ?, ?)"""
         cursor.execute(sql, venda.getSale())
         conn.commit()
     except Exception as p:
@@ -34,10 +34,12 @@ def selectAll():
         cursor.execute(sql)
         result = cursor.fetchall()
         for v in result:
-            novo = Venda(v[0], v[1], v[2], v[3])
+            novo = Venda(v[0], v[1], v[2], v[3], v[4])
             list.append(novo)
     except Exception as k:
         print(k)
     finally:
         conn.close()
     return list
+
+
