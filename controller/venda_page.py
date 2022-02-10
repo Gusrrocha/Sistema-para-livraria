@@ -377,9 +377,7 @@ class VendaPg(QWidget):
         except Exception as b:
             print(b)
 
-
         
-
 
     def showtime(self):
         tempo = QTime.currentTime()
@@ -388,3 +386,4 @@ class VendaPg(QWidget):
         data = QDate.currentDate()
         texto = data.toString("dd/MM/yyyy")
         self.data_label.setText(texto)
+

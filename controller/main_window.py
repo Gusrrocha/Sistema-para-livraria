@@ -115,6 +115,9 @@ class MainWindow(QMainWindow):
         l_format = '\n'.join(l)
         QMessageBox.information(self, "Lista de itens", f"{l_format}")
 
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key_F5:
+            print("Você apertou o f5")
 
 
         
