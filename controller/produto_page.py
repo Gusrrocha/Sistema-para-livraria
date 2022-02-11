@@ -24,6 +24,7 @@ class ProP(QWidget):
         self.painel_produtos.verticalHeader().setVisible(False)
         self.painel_produtos.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.painel_produtos.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeToContents)
+        self.painel_produtos.horizontalHeader().setSectionResizeMode(1, QHeaderView.ResizeToContents)
         self.painel_produtos.clicked.connect(self.click)
         self.load()
 
@@ -46,19 +47,20 @@ class ProP(QWidget):
     def salvar(self):
         nome = self.nome_prop.text()
         qt = self.quant_prop.value()
+        autor = self.au.text()
         valor = self.valor_prop.text()
         valor_c = self.est_prop.text()
 
         try:
-            if nome != '' and qt != 0 and valor != '' and valor_c != '':
+            if nome != '' and qt != 0 and autor != '' and valor != '' and valor_c != '':
                 if self.validator.validate(valor, 14)[0] == QValidator.Acceptable and self.validator.validate(valor_c, 14)[0] == QValidator.Acceptable:
                     val_ = valor.replace(',','.')
                     val_c = valor_c.replace(',','.')
                     if self.prod_at != None:
-                        prop_dao.editProd(Produto(self.prod_at.id, nome, qt, val_, val_c))
+                        prop_dao.editProd(Produto(self.prod_at.id, nome, qt, autor, val_, val_c))
                         self.load()
                     else:
-                        prop_dao.addProd(Produto(None, nome, qt, val_, val_c))
+                        prop_dao.addProd(Produto(None, nome, qt, autor, val_, val_c))
                         self.load()
                 else:
                     QMessageBox.warning(self, "Erro!", "Apenas números inteiros nas lacunas de valores!")              
@@ -113,6 +115,7 @@ class ProP(QWidget):
     def clear(self):
         self.nome_prop.clear()
         self.quant_prop.clear()
+        self.au.clear()
         self.valor_prop.clear()
         self.est_prop.clear()
         self.prod_at = None

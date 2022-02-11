@@ -43,11 +43,11 @@
         <property name="frameShadow">
          <enum>QFrame::Raised</enum>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout_3">
+        <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <layout class="QVBoxLayout" name="verticalLayout">
            <item>
-            <layout class="QVBoxLayout" name="verticalLayout">
+            <layout class="QHBoxLayout" name="horizontalLayout_8">
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_2">
                <item>
@@ -66,6 +66,28 @@
                </item>
               </layout>
              </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_6">
+               <item>
+                <widget class="QLabel" name="label_6">
+                 <property name="text">
+                  <string>Autor:</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="au">
+                 <property name="placeholderText">
+                  <string>Digite o nome do autor do produto</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_9">
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_3">
                <item>
@@ -100,48 +122,28 @@
                  </property>
                 </widget>
                </item>
-               <item>
-                <spacer name="horizontalSpacer_2">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeType">
-                  <enum>QSizePolicy::Fixed</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>200</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-              </layout>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QVBoxLayout" name="verticalLayout_2">
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_5">
-               <item>
-                <widget class="QLabel" name="label_4">
-                 <property name="text">
-                  <string>Valor:</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="valor_prop">
-                 <property name="placeholderText">
-                  <string>Digite o valor do produto (R$ 00,00)</string>
-                 </property>
-                </widget>
-               </item>
               </layout>
              </item>
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_4">
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_5">
+                 <item>
+                  <widget class="QLabel" name="label_4">
+                   <property name="text">
+                    <string>Valor:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLineEdit" name="valor_prop">
+                   <property name="placeholderText">
+                    <string>Digite o valor do produto (R$ 00,00)</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
                <item>
                 <widget class="QLabel" name="label_5">
                  <property name="text">

@@ -5,7 +5,7 @@ def addProd(produto):
     try:
         conn = dbase.connect()
         cursor = conn.cursor()
-        sql = """INSERT INTO Produto (nome, qt, valor, valor_compra) VALUES (?,?,?,?)"""
+        sql = """INSERT INTO Produto (nome, qt, autor, valor, valor_compra, saida) VALUES (?,?,?,?,?,0)"""
         cursor.execute(sql, produto.getProd())
         conn.commit()
     except Exception as i:
@@ -29,7 +29,7 @@ def editProd(produto):
     try:
         conn = dbase.connect()
         cursor = conn.cursor()
-        sql = """UPDATE Produto SET nome=?, qt=?, valor=?, valor_compra=? WHERE id=?"""
+        sql = """UPDATE Produto SET nome=?, qt=?, autor=?, valor=?, valor_compra=? WHERE id=?"""
         p = produto.getProd()
         p.append(produto.id)
         cursor.execute(sql, p)
@@ -48,7 +48,7 @@ def selectAll():
         cursor.execute(sql)
         result = cursor.fetchall()
         for prod in result:
-            new = Produto(prod[0], prod[1], prod[2], prod[3], prod[4])
+            new = Produto(prod[0], prod[1], prod[2], prod[3], prod[4], prod[5])
             l_p.append(new)
     except Exception as e:
         print(e)
