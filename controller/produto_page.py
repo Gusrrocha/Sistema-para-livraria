@@ -79,7 +79,6 @@ class ProP(QWidget):
         locale.setlocale(locale.LC_ALL, '')
         rowCount = self.painel_produtos.rowCount()
         self.painel_produtos.insertRow(rowCount)
-
         val_p = locale.currency(produto.valor_venda, grouping=True)
         val_c = locale.currency(produto.valor_compra, grouping=True)
         luc_pre = locale.currency(produto.valor_venda-produto.valor_compra, grouping=True)
@@ -87,6 +86,8 @@ class ProP(QWidget):
         id = QTableWidgetItem(str(produto.id))
         nome = QTableWidgetItem(produto.nome)
         qtd = QTableWidgetItem(str(produto.quantidade))
+        if produto.quantidade <= 10:
+            qtd = QTableWidgetItem(str(f'{produto.quantidade}'+' (Pouco estoque!)'))
         valor_ = QTableWidgetItem(str(val_p))
         valor_co = QTableWidgetItem(str(val_c))
         lucr_prej = QTableWidgetItem(str(luc_pre))
