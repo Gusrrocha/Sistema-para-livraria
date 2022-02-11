@@ -61,7 +61,6 @@ class ClientePage(QWidget):
                 f_dois = cpf[3:6]
                 f_tres = cpf[6:9]
                 f_quatro = cpf[9:]
-
                 f_tum = str(telefone[:2])
                 # f_td = str(telefone[2])
                 f_ttt = str(telefone[3:7])
