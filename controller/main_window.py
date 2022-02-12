@@ -1,5 +1,6 @@
 from qt_core import *
 import locale
+import os
 from controller.funcionario import FunOP
 from controller.produto_page import ProP
 from controller.cliente_page import ClientePage
@@ -32,7 +33,6 @@ class MainWindow(QMainWindow):
         self.action_dois = menu.addAction('Sair')
         self.action_dois.triggered.connect(self.sair)
         self.loadSale()
-
     def mainPage(self):
         item_dao.deleteNull()
         self.tabela.setCurrentIndex(0)

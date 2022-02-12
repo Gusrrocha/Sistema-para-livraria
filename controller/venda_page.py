@@ -34,6 +34,7 @@ class VendaPg(QWidget):
         self.tabela.currentChanged.connect(self.deleteChanges)
         self.user_logged = user_logged
         self.action.triggered.connect(self.deleteChanges)
+        self.img_produto.setPixmap(QPixmap('assets/icons/placeholder_img.png'))
         self.fun_atual_v.setText(user_logged)
         self.val_total.setText("R$ 0,00")
         self.valor_item.setText("R$ 0,00")
@@ -269,6 +270,10 @@ class VendaPg(QWidget):
         locale.setlocale(locale.LC_ALL, '')
         if self.produto_comboBox.currentText() != "Escolha o produto":
             self.prd_atual = self.lista_prd[index]
+            if self.prd_atual.img == None:
+                self.img_produto.setPixmap(QPixmap('assets/icons/placeholder_img.png'))
+            else:
+                self.img_produto.setPixmap(QPixmap(self.prd_atual.img))
             self.quant_produto.setMaximum(self.prd_atual.quantidade)
             self.valor = locale.currency(self.prd_atual.valor_venda, grouping=True)
             self.valor_item.setText(str(self.valor))

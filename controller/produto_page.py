@@ -2,6 +2,7 @@ from qt_core import *
 import model.prop_dao as prop_dao
 from model.produto import Produto
 import locale
+import os
 class ProP(QWidget):
     l_p = []
     prod_at = None
@@ -9,6 +10,7 @@ class ProP(QWidget):
         super().__init__()
         uic.loadUi('view/produto.ui', self)
         self.mainWindow = mainWindow
+        self.img = None
         self.remover_btn.hide()
         self.cancelar_btn.hide()
         self.remover_btn.clicked.connect(self.remover)
@@ -19,7 +21,8 @@ class ProP(QWidget):
         self.valor_prop.setValidator(self.validator)
         self.valor_prop.textChanged.connect(self.forn)
         self.est_prop.textChanged.connect(self.form)
-
+        self.img_btn.clicked.connect(self.imageFinder)
+        self.img_label.setPixmap(QPixmap('assets/icons/placeholder_img3.png'))
         self.quant_prop.setValue(1)
         self.painel_produtos.verticalHeader().setVisible(False)
         self.painel_produtos.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
@@ -57,10 +60,10 @@ class ProP(QWidget):
                     val_ = valor.replace(',','.')
                     val_c = valor_c.replace(',','.')
                     if self.prod_at != None:
-                        prop_dao.editProd(Produto(self.prod_at.id, nome, qt, autor, val_, val_c))
+                        prop_dao.editProd(Produto(self.prod_at.id, self.img, nome, qt, autor, val_, val_c))
                         self.load()
                     else:
-                        prop_dao.addProd(Produto(None, nome, qt, autor, val_, val_c))
+                        prop_dao.addProd(Produto(None, self.img, nome, qt, autor, val_, val_c))
                         self.load()
                 else:
                     QMessageBox.warning(self, "Erro!", "Apenas números inteiros nas lacunas de valores!")              
@@ -106,13 +109,19 @@ class ProP(QWidget):
         self.remover_btn.show()
         row = self.painel_produtos.currentRow()
         self.prod_at = self.l_p[row]
+        if self.prod_at.img == None:
+            self.img_label.setPixmap(QPixmap('assets/icons/placeholder_img3.png'))
+        else:
+            self.img_label.setPixmap(QPixmap(self.prod_at.img))
         self.nome_prop.setText(self.prod_at.nome)
+        self.au.setText(self.prod_at.autor)
         self.quant_prop.setValue(self.prod_at.quantidade)
         self.valor_prop.setText(str(self.prod_at.valor_venda).replace('.',','))
         self.est_prop.setText(str(self.prod_at.valor_compra).replace('.',','))
 
 
     def clear(self):
+        self.img_label.setPixmap(QPixmap('assets/icons/placeholder_img3.png'))
         self.nome_prop.clear()
         self.quant_prop.clear()
         self.au.clear()
@@ -120,3 +129,8 @@ class ProP(QWidget):
         self.est_prop.clear()
         self.prod_at = None
 
+    def imageFinder(self):
+        filt = 'File (*.jpg, *.jpeg, *.png)'
+        request = QFileDialog.getOpenFileName(self, "Escolha uma imagem", os.getcwd(), filt)
+        self.img = request[0]
+        self.img_label.setPixmap(QPixmap(self.img))
