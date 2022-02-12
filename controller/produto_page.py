@@ -133,5 +133,6 @@ class ProP(QWidget):
         filt = 'File (*.jpg, *.jpeg, *.png)'
         request = QFileDialog.getOpenFileName(self, "Escolha uma imagem", os.getcwd(), filt)
         self.img = request[0]
-
-        self.img_label.setPixmap(QPixmap(self.img))
+        if self.img != '':
+            self.img_label.setPixmap(QPixmap(self.img))
+        
