@@ -44,7 +44,7 @@ def selectAll():
     try:
         conn = dbase.connect()
         cursor = conn.cursor()
-        sql = """SELECT * FROM Produto ORDER BY id ASC"""
+        sql = """SELECT * FROM Produto ORDER BY nome ASC"""
         cursor.execute(sql)
         result = cursor.fetchall()
         for prod in result:

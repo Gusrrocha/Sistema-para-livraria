@@ -105,6 +105,7 @@ class ProP(QWidget):
         self.painel_produtos.setItem(rowCount, 5, lucr_prej)
     
     def click(self):
+        self.salvar_btn.setText('Salvar Produto')
         self.cancelar_btn.show()
         self.remover_btn.show()
         row = self.painel_produtos.currentRow()
@@ -129,6 +130,7 @@ class ProP(QWidget):
         self.au.clear()
         self.valor_prop.clear()
         self.est_prop.clear()
+        self.salvar_btn.setText('Adicionar Produto')
         self.img = None
         self.prod_at = None
 
