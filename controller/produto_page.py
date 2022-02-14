@@ -128,6 +128,7 @@ class ProP(QWidget):
         self.au.clear()
         self.valor_prop.clear()
         self.est_prop.clear()
+        self.img = None
         self.prod_at = None
 
     def imageFinder(self):
