@@ -110,6 +110,7 @@ class ProP(QWidget):
         row = self.painel_produtos.currentRow()
         self.prod_at = self.l_p[row]
         if self.prod_at.img == None:
+            self.img = None
             self.img_label.setPixmap(QPixmap('assets/icons/placeholder_img3.png'))
         else:
             self.img = self.prod_at.img
