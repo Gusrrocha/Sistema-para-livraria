@@ -112,6 +112,7 @@ class ProP(QWidget):
         if self.prod_at.img == None:
             self.img_label.setPixmap(QPixmap('assets/icons/placeholder_img3.png'))
         else:
+            self.img = self.prod_at.img
             self.img_label.setPixmap(QPixmap(self.prod_at.img))
         self.nome_prop.setText(self.prod_at.nome)
         self.au.setText(self.prod_at.autor)
