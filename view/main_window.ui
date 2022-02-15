@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>916</width>
-    <height>624</height>
+    <height>621</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -22,6 +22,9 @@
   <property name="windowIcon">
    <iconset>
     <normaloff>../assets/icons/icon_mW_placeholder.png</normaloff>../assets/icons/icon_mW_placeholder.png</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -192,6 +195,20 @@
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
          <widget class="QPushButton" name="home_btn">
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: orange;
+border-style:outset;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: white;
+    font: bold 12px;
+    min-width: 1em;
+    padding: 6px;
+</string>
+          </property>
           <property name="text">
            <string>Ínicio</string>
           </property>
@@ -258,6 +275,13 @@
          </widget>
         </item>
         <item>
+         <widget class="QPushButton" name="fun_btn">
+          <property name="text">
+           <string>Funcionários</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <spacer name="verticalSpacer">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
@@ -293,6 +317,9 @@
           <height>0</height>
          </size>
         </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
         <widget class="QWidget" name="page_2">
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
@@ -306,7 +333,7 @@
                <x>0</x>
                <y>0</y>
                <width>759</width>
-               <height>407</height>
+               <height>404</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_5">

@@ -8,6 +8,7 @@ from controller.venda_page import VendaPg
 from controller.estoque import Storage
 import model.venda_dao as Sale
 import model.item_dao as item_dao
+import model.funcionario_dao as fun
 class MainWindow(QMainWindow):
     def __init__(self, user_logged, login):
         super().__init__()
@@ -16,11 +17,17 @@ class MainWindow(QMainWindow):
         self.user_logged = user_logged
         self.login = login
         self.l = []
+        key = fun.selectOne(self.user_logged)[4]
+        if key != 1:
+            self.fun_btn.hide()
+        else:
+            self.fun_btn.show()
         self.funcionario_label.setText(user_logged+"!")
         self.clientes_btn.clicked.connect(self.showCliente)
         self.produto_btn.clicked.connect(self.produto_page)
         self.venda_btn.clicked.connect(self.venda_pg)
         self.home_btn.clicked.connect(self.mainPage)
+        self.fun_btn.clicked.connect(self.fun_page)
         self.table_venda.verticalHeader().setVisible(False)
         self.table_venda.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.table_venda.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeToContents)
@@ -29,13 +36,23 @@ class MainWindow(QMainWindow):
         menu = QMenu()
         self.mais_fun.setMenu(menu)
         action_um = menu.addAction('Editar funcionário')
-        action_um.triggered.connect(self.edit_fun)
+        action_um.triggered.connect(self.fun_page)
         self.action_dois = menu.addAction('Sair')
         self.action_dois.triggered.connect(self.sair)
         self.loadSale()
+    
     def mainPage(self):
         item_dao.deleteNull()
+        self.home_btn.setStyleSheet('border-style: inset; background-color: rgb(236, 157, 0);  border-width: 2px;'
+                                    'border-radius: 10px;'
+                                    'border-color: white;'
+                                    'font: bold 12px;'
+                                    'min-width: 1em;'
+                                    'padding: 6px;'
+        )
         self.tabela.setCurrentIndex(0)
+        
+        self.tabela.currentChanged.connect(self.button)
         self.loadSale()
 
     def showCliente(self):
@@ -47,7 +64,7 @@ class MainWindow(QMainWindow):
         self.login.show()
         self.hide()
 
-    def edit_fun(self):
+    def fun_page(self):
         item_dao.deleteNull()
         self.tabela.insertWidget(2, FunOP(self.user_logged))
         self.tabela.setCurrentIndex(2)
@@ -118,9 +135,25 @@ class MainWindow(QMainWindow):
         l_format = '\n'.join(l)
         QMessageBox.information(self, "Lista de itens", f"{l_format}")
 
+    def button(self):
+        if self.tabela.currentIndex() != 0:
+            self.home_btn.setStyleSheet('border-style: outset; background-color: orange; border-width: 2px;'
+                                        'border-radius: 10px;'
+                                        'border-color: white;'
+                                        'font: bold 12px;'
+                                        'min-width: 1em;'
+                                        'padding: 6px;')
+        else:
+            self.home_btn.setStyleSheet('border-style: inset; background-color: rgb(236, 157, 0); border-width: 2px;'
+                                        'border-radius: 10px;'
+                                        'border-color: white;'
+                                        'font: bold 12px;'
+                                        'min-width: 1em;'
+                                        'padding: 6px;')
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_F5:
-            print("Você apertou o f5")
+            self.loadSale()
+            print("Você apertou o f5! Parabéns!")
 
 
         
