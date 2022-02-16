@@ -322,7 +322,7 @@
      </column>
      <column>
       <property name="text">
-       <string>Quantidade</string>
+       <string>Estoque</string>
       </property>
      </column>
      <column>
