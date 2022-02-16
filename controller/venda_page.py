@@ -51,6 +51,7 @@ class VendaPg(QWidget):
         self.cancel_item_btn.hide()
         self.parcela_label.hide()
         self.parcelas.hide()
+        self.parcelas.setEnabled(False)
         self.label_im.hide()
         self.label_par.hide()
         self.label_po.hide()
@@ -116,6 +117,7 @@ class VendaPg(QWidget):
             self.valor_item.setEnabled(False)
             self.table_item.setEnabled(False)
             self.pag_comboBox.setEnabled(False)
+            self.parcelas.setEnabled(True)
             self.din_lineEdit.returnPressed.connect(self.mCl)
     
     def pagamento(self):
