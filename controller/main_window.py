@@ -17,11 +17,14 @@ class MainWindow(QMainWindow):
         self.user_logged = user_logged
         self.login = login
         self.l = []
+        menu = QMenu()
         key = fun.selectOne(self.user_logged)[4]
         if key != 1:
             self.fun_btn.hide()
         else:
             self.fun_btn.show()
+            action_um = menu.addAction('Gerenciar funcionários')
+            action_um.triggered.connect(self.fun_page)
         self.funcionario_label.setText(user_logged+"!")
         self.clientes_btn.clicked.connect(self.showCliente)
         self.produto_btn.clicked.connect(self.produto_page)
@@ -33,10 +36,7 @@ class MainWindow(QMainWindow):
         self.table_venda.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeToContents)
         self.table_venda.horizontalHeader().setSectionResizeMode(5, QHeaderView.ResizeToContents)
         self.table_venda.horizontalHeader().setSectionResizeMode(6, QHeaderView.ResizeToContents)
-        menu = QMenu()
         self.mais_fun.setMenu(menu)
-        action_um = menu.addAction('Editar funcionário')
-        action_um.triggered.connect(self.fun_page)
         self.action_dois = menu.addAction('Sair')
         self.action_dois.triggered.connect(self.sair)
         self.loadSale()
@@ -154,6 +154,8 @@ class MainWindow(QMainWindow):
         if event.key() == Qt.Key_F5:
             self.loadSale()
             print("Você apertou o f5! Parabéns!")
+        if event.key() == Qt.Key_Control+Qt.Key_C:
+            print("Parabéns você fez um negócio inútil!")
 
 
         

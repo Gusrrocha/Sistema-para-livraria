@@ -40,6 +40,12 @@
            </item>
            <item>
             <widget class="QLineEdit" name="fun_atual_v">
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
              <property name="readOnly">
               <bool>true</bool>
              </property>
@@ -59,12 +65,26 @@
             </spacer>
            </item>
            <item>
+            <widget class="Line" name="line">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QLabel" name="label_4">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
              </property>
              <property name="text">
               <string>Data:</string>
@@ -73,6 +93,12 @@
            </item>
            <item>
             <widget class="QLabel" name="data_label">
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
              <property name="text">
               <string>TextLabel</string>
              </property>
@@ -80,6 +106,12 @@
            </item>
            <item>
             <widget class="QLabel" name="label_date">
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
              <property name="text">
               <string>TextLabel</string>
              </property>
@@ -104,6 +136,12 @@
            </item>
            <item>
             <widget class="QComboBox" name="cliente_comboBox">
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
              <item>
               <property name="text">
                <string>Escolha o cliente</string>
@@ -126,6 +164,12 @@
            </item>
            <item>
             <widget class="QComboBox" name="pag_comboBox">
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
              <item>
               <property name="text">
                <string>DINHEIRO</string>
@@ -204,6 +248,12 @@
             </item>
             <item>
              <widget class="QComboBox" name="produto_comboBox">
+              <property name="font">
+               <font>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
               <item>
                <property name="text">
                 <string>Escolha o produto</string>
@@ -306,6 +356,15 @@
            <layout class="QHBoxLayout" name="horizontalLayout_8">
             <item>
              <widget class="QPushButton" name="cancel_item_btn">
+              <property name="font">
+               <font>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
               <property name="text">
                <string>Cancelar</string>
               </property>
@@ -313,6 +372,15 @@
             </item>
             <item>
              <widget class="QPushButton" name="final_in_btn">
+              <property name="font">
+               <font>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
               <property name="text">
                <string>Finalizar inserção</string>
               </property>
@@ -333,6 +401,15 @@
             </item>
             <item>
              <widget class="QPushButton" name="removerItem_btn">
+              <property name="font">
+               <font>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
               <property name="text">
                <string>Remover item</string>
               </property>
@@ -340,6 +417,15 @@
             </item>
             <item>
              <widget class="QPushButton" name="addItem_btn">
+              <property name="font">
+               <font>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
               <property name="text">
                <string>Adicionar item</string>
               </property>
@@ -461,6 +547,12 @@
              </item>
              <item>
               <widget class="QComboBox" name="parcelas">
+               <property name="font">
+                <font>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
                <item>
                 <property name="text">
                  <string>2x</string>
@@ -550,6 +642,15 @@
              </item>
              <item>
               <widget class="QPushButton" name="inserir_din">
+               <property name="font">
+                <font>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
                <property name="text">
                 <string>Inserir</string>
                </property>
@@ -756,6 +857,12 @@
              </item>
              <item>
               <widget class="QPushButton" name="pushButton_4">
+               <property name="font">
+                <font>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
                <property name="text">
                 <string>?</string>
                </property>
@@ -763,6 +870,15 @@
              </item>
              <item>
               <widget class="QPushButton" name="final_btn">
+               <property name="font">
+                <font>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
                <property name="text">
                 <string>Finalizar venda</string>
                </property>

@@ -98,7 +98,8 @@ class ClientePage(QWidget):
     def cL(self):
         self.remover_btn.show()
         self.cancel_edit_btn.show()
-
+        self.salvar_btn.setText('Salvar')
+        self.salvar_btn.setToolTip('Salvar Cliente')
         row = self.painel_clientes.currentRow()
         self.c_at = self.l_c[row]
         cpf_c = str(self.c_at.cpf)
@@ -123,6 +124,8 @@ class ClientePage(QWidget):
         self.telefone.clear()
         self.endereco.clear()
         self.cpf.clear()
+        self.salvar_btn.setText('Adicionar Cliente')
+        self.salvar_btn.setToolTip('Adicionar Cliente')
         self.c_at = None
 
     def add_cliente(self, cliente):

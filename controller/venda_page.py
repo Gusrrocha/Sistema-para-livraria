@@ -159,7 +159,7 @@ class VendaPg(QWidget):
             i = 0
             self.q += 1
             for p in self.lista_prd:
-                self.produto_comboBox.insertItem(i, p.nome)
+                self.produto_comboBox.insertItem(i, f'0{p.id} - '+p.nome)
                 i += 1
         self.produto_comboBox.currentIndexChanged.connect(self.prdSelected)
 

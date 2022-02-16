@@ -170,8 +170,20 @@
           <layout class="QHBoxLayout" name="horizontalLayout_5">
            <item>
             <widget class="QPushButton" name="remover_btn">
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
              <property name="cursor">
               <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="toolTip">
+              <string>Remover cliente</string>
+             </property>
+             <property name="statusTip">
+              <string/>
              </property>
              <property name="text">
               <string>Remover</string>
@@ -193,8 +205,20 @@
            </item>
            <item>
             <widget class="QPushButton" name="cancel_edit_btn">
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
              <property name="cursor">
               <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="toolTip">
+              <string>Cancelar</string>
+             </property>
+             <property name="statusTip">
+              <string/>
              </property>
              <property name="text">
               <string>Cancelar edição</string>
@@ -203,11 +227,20 @@
            </item>
            <item>
             <widget class="QPushButton" name="salvar_btn">
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
              <property name="cursor">
               <cursorShape>PointingHandCursor</cursorShape>
              </property>
+             <property name="statusTip">
+              <string>Adicionar cliente</string>
+             </property>
              <property name="text">
-              <string>Salvar</string>
+              <string>Adicionar Cliente</string>
              </property>
             </widget>
            </item>
