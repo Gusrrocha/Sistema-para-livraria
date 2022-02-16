@@ -42,4 +42,14 @@ def selectAll():
         conn.close()
     return list
 
-
+def deletePastMonth():
+    try:
+        conn = dbase.connect()
+        cursor = conn.cursor()
+        sql = """DELETE FROM Venda WHERE data <= date('now', 'LocalTime', '-1 month')"""
+        cursor.execute(sql)
+        conn.commit()
+    except Exception as m:
+        print(m)
+    finally:
+        conn.close()

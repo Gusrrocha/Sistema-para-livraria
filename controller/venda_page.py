@@ -79,13 +79,17 @@ class VendaPg(QWidget):
         self.load_prd()
     
     def close(self):
-        for item in self.lista_item:
-            for produto in self.lista_prd:
-                if produto.id == item.produto_id:
-                    qt = produto.quantidade
-                    qt += item.quantidade
-                    st.update(item.produto_id, qt)
-                    qt = 0
+        if self.tabela.currentIndex() == 4:
+            for item in self.lista_item:
+                for produto in self.lista_prd:
+                    if produto.id == item.produto_id:
+                        qt = produto.quantidade
+                        qt += item.quantidade
+                        st.update(item.produto_id, qt)
+                        qt = 0
+        else:
+            pass
+        
     def deleteChanges(self):
         if self.other == 1:
             pass
@@ -306,7 +310,7 @@ class VendaPg(QWidget):
         locale.setlocale(locale.LC_ALL, '')
         
         if self.pag_comboBox.currentIndex() != 1:
-            if self.valid.validate(self.din_lineEdit.text(), 14)[0] == QValidator.Acceptable:
+            if self.valid.validate(self.din_lineEdit.text(), 14)[0] == QValidator.Acceptable and '.' not in self.din_lineEdit.text():
                 d = self.din_lineEdit.text()
                 z = d.replace(',', '.')
                 if self.valor_total != 0:
@@ -370,7 +374,7 @@ class VendaPg(QWidget):
                     for p in self.lista_prd:
                         if p.id == i.produto_id:
                             st.storage(i.produto_id, i.quantidade)
-                sale.add(Venda(None, self.cl_atual.nome, self.user_logged, self.valor_total, QDateTime.currentDateTime().toString('dd/MM/yyyy '+' hh:mm:ss')))
+                sale.add(Venda(None, self.cl_atual.nome, self.user_logged, self.valor_total, QDateTime.currentDateTime().toString('yyyy-MM-dd '+' hh:mm:ss')))
                 QMessageBox.information(self, "Finalizado!", "Compra finalizada com sucesso!")
                 id_venda = sale.selectRecent()
                 for itemid in self.lista_iditem:

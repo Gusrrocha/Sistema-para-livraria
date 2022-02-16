@@ -5,7 +5,6 @@ from controller.funcionario import FunOP
 from controller.produto_page import ProP
 from controller.cliente_page import ClientePage
 from controller.venda_page import VendaPg
-from controller.estoque import Storage
 import model.venda_dao as Sale
 import model.item_dao as item_dao
 import model.funcionario_dao as fun
@@ -14,8 +13,10 @@ class MainWindow(QMainWindow):
         super().__init__()
         uic.loadUi('view/main_window.ui', self)
 
+        Sale.deletePastMonth()
         self.user_logged = user_logged
         self.login = login
+        self.orca = 0
         self.l = []
         menu = QMenu()
         key = fun.selectOne(self.user_logged)[4]
@@ -39,6 +40,7 @@ class MainWindow(QMainWindow):
         self.mais_fun.setMenu(menu)
         self.action_dois = menu.addAction('Sair')
         self.action_dois.triggered.connect(self.sair)
+        self.loadSale()
         self.loadSale()
     
     def mainPage(self):
@@ -85,6 +87,7 @@ class MainWindow(QMainWindow):
         self.table_venda.setRowCount(0)
         for v in self.l:
             self.addVenda(v)
+            self.orca += v.valor
         for i in range(self.table_venda.rowCount()):
             if self.table_venda.rowCount() > -1:
                 button = QPushButton(self.table_venda)
@@ -106,7 +109,13 @@ class MainWindow(QMainWindow):
         cliente = QTableWidgetItem(v.cliente)
         funcionario = QTableWidgetItem(v.funcionario)
         quant_item = QTableWidgetItem(str(len(list)))
-
+        f = v.data[:4]
+        f_u = v.data[5:7]
+        f_d = v.data[8:10]
+        h = v.data[12:14]
+        m = v.data[15:17]
+        s = v.data[18:20]
+        da = '{}-{}-{}  {}:{}:{}'.format(f_d,f_u,f,h,m,s)
         d = 0
         for i in list:
             d += i.produto_valor
@@ -119,7 +128,7 @@ class MainWindow(QMainWindow):
         self.table_venda.setItem(row, 2, funcionario)
         self.table_venda.setItem(row, 3, quant_item)
         self.table_venda.setItem(row, 4, valor)
-        self.table_venda.setItem(row, 5, QTableWidgetItem(v.data))
+        self.table_venda.setItem(row, 5, QTableWidgetItem(da))
         
     def ver_mais(self):
         locale.setlocale(locale.LC_ALL, '')
@@ -153,6 +162,7 @@ class MainWindow(QMainWindow):
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_F5:
             self.loadSale()
+            Sale.deletePastMonth()
             print("Você apertou o f5! Parabéns!")
         if event.key() == Qt.Key_Control+Qt.Key_C:
             print("Parabéns você fez um negócio inútil!")
