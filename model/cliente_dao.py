@@ -64,7 +64,7 @@ def research(tp):
     try:
         conn = dbase.connect()
         cursor = conn.cursor()
-        sql = """SELECT * FROM Cliente where nome LIKE '{}%'""".format(tp)
+        sql = """SELECT * FROM Cliente where nome LIKE '{}%' ORDER by upper(nome)""".format(tp)
         cursor.execute(sql)
         res = cursor.fetchall()
         for c in res:
