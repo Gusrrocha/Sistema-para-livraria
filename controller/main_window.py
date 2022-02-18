@@ -12,11 +12,10 @@ class MainWindow(QMainWindow):
     def __init__(self, user_logged, login):
         super().__init__()
         uic.loadUi('view/main_window.ui', self)
-
         Sale.deletePastMonth()
         self.user_logged = user_logged
         self.login = login
-        self.orca = 0
+        
         self.l = []
         menu = QMenu()
         key = fun.selectOne(self.user_logged)[4]
@@ -35,6 +34,7 @@ class MainWindow(QMainWindow):
         self.table_venda.verticalHeader().setVisible(False)
         self.table_venda.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.table_venda.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeToContents)
+        self.table_venda.horizontalHeader().setSectionResizeMode(4, QHeaderView.ResizeToContents)
         self.table_venda.horizontalHeader().setSectionResizeMode(5, QHeaderView.ResizeToContents)
         self.table_venda.horizontalHeader().setSectionResizeMode(6, QHeaderView.ResizeToContents)
         self.mais_fun.setMenu(menu)
@@ -87,7 +87,6 @@ class MainWindow(QMainWindow):
         self.table_venda.setRowCount(0)
         for v in self.l:
             self.addVenda(v)
-            self.orca += v.valor
         for i in range(self.table_venda.rowCount()):
             if self.table_venda.rowCount() > -1:
                 button = QPushButton(self.table_venda)
@@ -120,15 +119,27 @@ class MainWindow(QMainWindow):
         for i in list:
             d += i.produto_valor
         if d < v.valor:
-            valor = QTableWidgetItem(str(val+' (COM JUROS)'))
+            valor = QTableWidgetItem(str(val+' [COM JUROS DE ({}x)]'.format(v.parcela)))
+            valor.setToolTip(val+' [COM JUROS DE ({}x)]'.format(v.parcela))
+            
+
         else:
             valor = QTableWidgetItem(str(val))
+            valor.setToolTip(val)
+        if len(v.cliente) > 20: cliente.setToolTip(v.cliente)
+        if len(v.funcionario) > 20: funcionario.setToolTip(v.funcionario)
+        font = QFont()
+        font.setBold(True)
+        
         self.table_venda.setItem(row, 0, id)
         self.table_venda.setItem(row, 1, cliente)
         self.table_venda.setItem(row, 2, funcionario)
         self.table_venda.setItem(row, 3, quant_item)
         self.table_venda.setItem(row, 4, valor)
         self.table_venda.setItem(row, 5, QTableWidgetItem(da))
+        # rect = self.table_venda.visualItemRect(self.table_venda.currentItem())
+        # v = self.table_venda.viewport().update(rect)
+        # print(v)
         
     def ver_mais(self):
         locale.setlocale(locale.LC_ALL, '')
@@ -159,6 +170,8 @@ class MainWindow(QMainWindow):
                                         'font: bold 12px;'
                                         'min-width: 1em;'
                                         'padding: 6px;')
+    
+    
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_F5:
             self.loadSale()

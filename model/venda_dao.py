@@ -4,7 +4,7 @@ def add(venda):
     try:
         conn = dbase.connect()
         cursor = conn.cursor()
-        sql = """INSERT INTO Venda (cliente, funcionario, valor, data) VALUES (?, ?, ?, ?)"""
+        sql = """INSERT INTO Venda (cliente, funcionario, valor, data, parcela) VALUES (?, ?, ?, ?, ?)"""
         cursor.execute(sql, venda.getSale())
         conn.commit()
     except Exception as p:
@@ -34,7 +34,7 @@ def selectAll():
         cursor.execute(sql)
         result = cursor.fetchall()
         for v in result:
-            novo = Venda(v[0], v[1], v[2], v[3], v[4])
+            novo = Venda(v[0], v[1], v[2], v[3], v[4], v[5])
             list.append(novo)
     except Exception as k:
         print(k)
@@ -46,10 +46,27 @@ def deletePastMonth():
     try:
         conn = dbase.connect()
         cursor = conn.cursor()
-        sql = """DELETE FROM Venda WHERE data <= date('now', 'LocalTime', '-1 month')"""
+        sql = """DELETE FROM Venda WHERE data <= datetime('now', 'LocalTime', '-1 month')"""
         cursor.execute(sql)
         conn.commit()
     except Exception as m:
         print(m)
     finally:
         conn.close()
+
+# def selectPastMonth():
+#     l = []
+#     try:
+#         conn = dbase.connect()
+#         cursor = conn.cursor()
+#         sql = """SELECT * From Venda Where data >= datetime('now', 'start of month', 'LocalTime')"""
+#         cursor.execute(sql)
+#         res = cursor.fetchall()
+#         for v in res:
+#             n = Venda(v[0],v[1],v[2],v[3],v[4])
+#             l.append(n)
+#     except Exception as qwert:
+#         print(qwert)
+#     finally:
+#         conn.close()
+#     return l

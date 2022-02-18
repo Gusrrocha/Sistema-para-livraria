@@ -58,3 +58,20 @@ def selectAll():
     finally:
         conn.close()
     return lis
+
+def research(tp):
+    l = []
+    try:
+        conn = dbase.connect()
+        cursor = conn.cursor()
+        sql = """SELECT * FROM Cliente where nome LIKE '{}%'""".format(tp)
+        cursor.execute(sql)
+        res = cursor.fetchall()
+        for c in res:
+            yes = Cliente(c[0], c[1], c[2], c[3], c[4])
+            l.append(yes)
+    except Exception as w:
+        print(w)
+    finally:
+        conn.close()
+    return l

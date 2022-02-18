@@ -374,17 +374,22 @@ class VendaPg(QWidget):
                     for p in self.lista_prd:
                         if p.id == i.produto_id:
                             st.storage(i.produto_id, i.quantidade)
-                sale.add(Venda(None, self.cl_atual.nome, self.user_logged, self.valor_total, QDateTime.currentDateTime().toString('yyyy-MM-dd '+' hh:mm:ss')))
-                QMessageBox.information(self, "Finalizado!", "Compra finalizada com sucesso!")
+                if self.pag_comboBox.currentText() == 'DINHEIRO':
+                    sale.add(Venda(None, self.cl_atual.nome, self.user_logged, self.valor_total, QDateTime.currentDateTime().toString('yyyy-MM-dd '+' hh:mm:ss'),0))
+                    QMessageBox.information(self, "Finalizado!", "Compra finalizada com sucesso!")
+                elif self.pag_comboBox.currentText() == 'CARTÃO':
+                    sale.add(Venda(None, self.cl_atual.nome, self.user_logged, self.valor_total, QDateTime.currentDateTime().toString('yyyy-MM-dd '+' hh:mm:ss'), self.parcela_at))
+                    QMessageBox.information(self, "Finalizado!", "Compra finalizada com sucesso!")
+                    
+                    
                 id_venda = sale.selectRecent()
                 for itemid in self.lista_iditem:
-                    conn = dbase.connect()
-                    cursor = conn.cursor()
-                    sql = f"""UPDATE ItemVenda SET id_venda={id_venda[0]} WHERE id=?"""
-                    cursor.execute(sql, [itemid])
-                    conn.commit()
-                    conn.close()
-                
+                        conn = dbase.connect()
+                        cursor = conn.cursor()
+                        sql = f"""UPDATE ItemVenda SET id_venda={id_venda[0]} WHERE id=?"""
+                        cursor.execute(sql, [itemid])
+                        conn.commit()
+                        conn.close()
                 self.other += 1
                 self.mainWindow.mainPage()
             else:

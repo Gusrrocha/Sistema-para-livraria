@@ -23,7 +23,9 @@ class ClientePage(QWidget):
         self.painel_clientes.verticalHeader().setVisible(False)
         self.painel_clientes.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.painel_clientes.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeToContents)
+        self.painel_clientes.itemDoubleClicked.connect(self.click)
         self.cancel_edit_btn.clicked.connect(self.stopEdit)
+        self.pesquisa.textChanged.connect(self.buscar)
         self.cpf.setMaxLength(11)
         self.telefone.setMaxLength(11)
         self.load()
@@ -37,14 +39,27 @@ class ClientePage(QWidget):
             self.add_cliente(cliente)
 
     def buscar(self):
-        pass
+        font = QFont()
+        if self.pesquisa.text() != '':
+            font.setKerning(True)
+        else:
+            font.setItalic(True)
+        self.pesquisa.setFont(font)
+        tp = self.pesquisa.text()
+        l = cliente_dao.research(tp)
+        self.clear_()
+        self.painel_clientes.setRowCount(0)
+        for cliente in l:
+            self.add_cliente(cliente)
 
 
     def remover(self):
-        cliente_dao.removeC(self.c_at.id)
-        self.remover_btn.hide()
-        self.cancel_edit_btn.hide()
-        self.load()
+        q = QMessageBox.question(self, 'Remover', 'Você tem certeza que deseja excluir o cliente?', QMessageBox.Yes | QMessageBox.No)
+        if q == QMessageBox.Yes:
+            cliente_dao.removeC(self.c_at.id)
+            self.remover_btn.hide()
+            self.cancel_edit_btn.hide()
+            self.load()
 
         
 
@@ -147,5 +162,10 @@ class ClientePage(QWidget):
 
 
 
-
-        
+    def click(self):
+        q = QMessageBox.question(self, 'Remover', 'Deseja remover o cliente?', QMessageBox.Yes | QMessageBox.No)
+        if q == QMessageBox.Yes:
+            cliente_dao.removeC(self.c_at.id)
+            self.remover_btn.hide()
+            self.cancel_edit_btn.hide()
+            self.load()

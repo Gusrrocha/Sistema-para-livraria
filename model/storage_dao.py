@@ -34,4 +34,3 @@ def storage(id, qt):
     finally:
         conn.close()
     
-        

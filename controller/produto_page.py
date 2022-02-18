@@ -29,6 +29,7 @@ class ProP(QWidget):
         self.painel_produtos.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeToContents)
         self.painel_produtos.horizontalHeader().setSectionResizeMode(1, QHeaderView.ResizeToContents)
         self.painel_produtos.clicked.connect(self.click)
+        self.painel_produtos.itemDoubleClicked.connect(self.doubleClick)
         self.load()
 
     def forn(self):
@@ -37,10 +38,12 @@ class ProP(QWidget):
         self.validator.validate(self.est_prop.text(), 14)[0]
 
     def remover(self):
-        prop_dao.removeP(self.prod_at.id)
-        self.remover_btn.hide()
-        self.cancelar_btn.hide()
-        self.load()
+        q = QMessageBox.question(self, "Remover", "Tem certeza que deseja remover o produto?", QMessageBox.Yes | QMessageBox.No)
+        if q == QMessageBox.Yes:
+            prop_dao.removeP(self.prod_at.id)
+            self.remover_btn.hide()
+            self.cancelar_btn.hide()
+            self.load()
 
     def cancelar(self):
         self.clear()
@@ -122,7 +125,13 @@ class ProP(QWidget):
         self.valor_prop.setText(str(self.prod_at.valor_venda).replace('.',','))
         self.est_prop.setText(str(self.prod_at.valor_compra).replace('.',','))
 
-
+    def doubleClick(self):
+        q = QMessageBox.question(self, "Remover", "Deseja remover o produto?", QMessageBox.Yes | QMessageBox.No)
+        if q == QMessageBox.Yes:
+            prop_dao.removeP(self.prod_at.id)
+            self.remover_btn.hide()
+            self.cancelar_btn.hide()
+            self.load()
     def clear(self):
         self.img_label.setPixmap(QPixmap('assets/icons/placeholder_img3.png'))
         self.nome_prop.clear()

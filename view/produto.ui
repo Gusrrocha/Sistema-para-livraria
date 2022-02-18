@@ -18,7 +18,6 @@
     <widget class="QLabel" name="label">
      <property name="font">
       <font>
-       <family>Arial Black</family>
        <pointsize>14</pointsize>
        <weight>75</weight>
        <bold>true</bold>
@@ -26,6 +25,9 @@
      </property>
      <property name="text">
       <string>Produtos</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>
@@ -111,6 +113,12 @@
                 <layout class="QHBoxLayout" name="horizontalLayout_2">
                  <item>
                   <widget class="QLabel" name="label_2">
+                   <property name="font">
+                    <font>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
                    <property name="text">
                     <string>Nome do produto:</string>
                    </property>
@@ -118,6 +126,11 @@
                  </item>
                  <item>
                   <widget class="QLineEdit" name="nome_prop">
+                   <property name="font">
+                    <font>
+                     <italic>false</italic>
+                    </font>
+                   </property>
                    <property name="placeholderText">
                     <string>Digite o nome do produto</string>
                    </property>
@@ -129,6 +142,12 @@
                 <layout class="QHBoxLayout" name="horizontalLayout_6">
                  <item>
                   <widget class="QLabel" name="label_6">
+                   <property name="font">
+                    <font>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
                    <property name="text">
                     <string>Autor:</string>
                    </property>
@@ -156,6 +175,12 @@
                      <horstretch>0</horstretch>
                      <verstretch>0</verstretch>
                     </sizepolicy>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
                    </property>
                    <property name="text">
                     <string>Quantidade:</string>
@@ -196,6 +221,13 @@
                    </item>
                    <item>
                     <widget class="QLineEdit" name="valor_prop">
+                     <property name="font">
+                      <font>
+                       <italic>false</italic>
+                       <strikeout>false</strikeout>
+                       <kerning>true</kerning>
+                      </font>
+                     </property>
                      <property name="placeholderText">
                       <string>Digite o valor do produto (R$ 00,00)</string>
                      </property>
@@ -205,6 +237,12 @@
                  </item>
                  <item>
                   <widget class="QLabel" name="label_5">
+                   <property name="font">
+                    <font>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
                    <property name="text">
                     <string>Valor de compra:</string>
                    </property>
