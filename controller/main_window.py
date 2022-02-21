@@ -13,10 +13,13 @@ class MainWindow(QMainWindow):
         super().__init__()
         uic.loadUi('view/main_window.ui', self)
         Sale.deletePastMonth()
+        item_dao.delSNonExistance()
         self.user_logged = user_logged
         self.login = login
+        self.setMouseTracking(True)
         
         self.l = []
+        
         menu = QMenu()
         key = fun.selectOne(self.user_logged)[4]
         if key != 1:
@@ -41,7 +44,8 @@ class MainWindow(QMainWindow):
         self.action_dois = menu.addAction('Sair')
         self.action_dois.triggered.connect(self.sair)
         self.loadSale()
-        self.loadSale()
+
+    
     
     def mainPage(self):
         item_dao.deleteNull()
@@ -172,13 +176,22 @@ class MainWindow(QMainWindow):
                                         'padding: 6px;')
     
     
+    def paintEvent(self, event):
+        painter = QPainter()
+        painter.begin(self)
+        painter.setBrush(QColor(119,255,183))
+        painter.drawRect(0,0,100000000,105)
+        # painter.setBrush(Qt.lightGray)
+        # painter.drawRect(117,109,100000,100000)
+        painter.end()
+    
+    def mouseMoveEvent(self, event):
+        self.cord.setText('(%d : %d)'% (event.x(), event.y()))
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_F5:
             self.loadSale()
             Sale.deletePastMonth()
             print("Você apertou o f5! Parabéns!")
-        if event.key() == Qt.Key_Control+Qt.Key_C:
-            print("Parabéns você fez um negócio inútil!")
 
 
         

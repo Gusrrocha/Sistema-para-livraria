@@ -82,3 +82,29 @@ def selectAllOne(id):
     finally:
         conn.close()
     return lista
+
+def delSNonExistance():
+    l = []
+    try:
+        conn = dbase.connect()
+        cursor = conn.cursor()
+        sql = """SELECT * FROM ItemVenda"""
+        cursor.execute(sql)
+        res = cursor.fetchall()
+        for i in res:
+            n = Item(i[0], None, i[1], i[2],i[3],i[4])
+            l.append(n)
+        for i in l:
+            sql_2 = """SELECT * FROM Venda WHERE id={}""".format(i.id_venda)
+            cursor.execute(sql_2)
+            r = cursor.fetchall()
+            if len(r) != 0:
+                pass
+            else:
+                sql_3 = """DELETE FROM ItemVenda Where id_venda={}""".format(i.id_venda)
+                cursor.execute(sql_3)
+                conn.commit()
+    except Exception as w:
+        print(w)
+    finally:
+        conn.close()

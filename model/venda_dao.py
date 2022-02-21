@@ -1,5 +1,7 @@
 from model import dbase
 from model.venda import Venda
+from model.item_dao import Item
+import model.item_dao as item_dao
 def add(venda):
     try:
         conn = dbase.connect()
@@ -46,7 +48,7 @@ def deletePastMonth():
     try:
         conn = dbase.connect()
         cursor = conn.cursor()
-        sql = """DELETE FROM Venda WHERE data <= datetime('now', 'LocalTime', '-1 month')"""
+        sql = """DELETE FROM Venda WHERE data <= datetime('now', 'LocalTime', 'start of month')"""
         cursor.execute(sql)
         conn.commit()
     except Exception as m:
